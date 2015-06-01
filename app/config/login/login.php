@@ -25,7 +25,7 @@
             case 2:
                 $_SESSION['user'] = Config::$USER_COOKIE_VALUE;
                 $_SESSION['username'] = $username;
-                header("Location: ../../index.php");
+                header("Location: ../../../index.php");
                 exit;
                 break;
             // Unexpected error happened
@@ -36,5 +36,5 @@
                 break;
         }
     } else {
-        header("Location: ../../login.php");
+        header("Location: ../../../../../login.php");
     }

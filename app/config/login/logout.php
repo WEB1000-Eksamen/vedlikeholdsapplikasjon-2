@@ -2,7 +2,7 @@
     session_start();
     if (isset($_SESSION['user'])) {
         unset($_SESSION['user'], $_SESSION['username']);
-        header("Location: ../../login.php");
+        header("Location: /vedlikeholdsapplikasjon-2/login.php");
         exit;
     }
     header("Location: ../../index.php");

@@ -47,7 +47,7 @@
                     ";
                 } else {
                 ?>
-                <form action="php/login/login.php" method="POST">
+                <form action="app/config/login/login.php" method="POST">
                     <h1 class="text-center">
                         Perfect Hotels Premium
                     </h1>

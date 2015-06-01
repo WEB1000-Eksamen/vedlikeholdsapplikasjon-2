@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Brukeradministrasjon - Obligatorisk Oppgave 4</title>
+     <title>Brukeradministrasjon - Obligatorisk Oppgave 4</title>
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/stylesheet.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,7 @@
         <header>
             <h1 class="">Brukeradministrasjon</h1>
         </header>
-        <a href="../../../index.php" class="float-right back">Gå til forsiden</a>
+        <a href="../../../../index.php" class="float-right back">Gå til forsiden</a>
         <h2>Brukerliste</h2>
         <table>
             <thead>
