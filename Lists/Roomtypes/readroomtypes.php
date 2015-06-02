@@ -1,18 +1,19 @@
 <?php
-    require 'database.php';
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
+    require '../database.php';
+    require_once("../../top.html");
+    $OrderID = null;
+    if ( !empty($_GET['OrderID'])) {
+        $OrderID = $_REQUEST['OrderID'];
     }
      
-    if ( null==$id ) {
-        header("Location: index.php");
+    if ( null==$OrderID ) {
+        header("Location: OrdersList.php");
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM customers where id = ?";
+        $sql = "SELECT * FROM orders where OrderID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($id));
+        $q->execute(array($OrderID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
     }
@@ -22,51 +23,51 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link   href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+    <script src="../js/bootstrap.min.js"></script>
 </head>
  
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
-    <div class="container">
+    <div class="containers">
      
-                <div class="span10 offset1">
+                <div class="container1">
                     <div class="row">
-                        <h3>Read a Customer</h3>
+                        <h3>Du ser på</h3>
                     </div>
                      
-                    <div class="form-horizontal" >
+                    <form class="form" action="updateorder.php?OrderID=<?php echo $OrderID?>" method="post">
+
+
                       <div class="control-group">
-                        <label class="control-label">Name</label>
+                        <label class="control-label">Referanse</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['name'];?>
+                                <?php echo $data['Reference'];?>
                             </label>
                         </div>
                       </div>
+                      
                       <div class="control-group">
-                        <label class="control-label">Email Address</label>
+                        <label class="control-label">Email</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['email'];?>
+                                <?php echo $data['Email'];?>
                             </label>
                         </div>
                       </div>
-                      <div class="control-group">
-                        <label class="control-label">Mobile Number</label>
-                        <div class="controls">
-                            <label class="checkbox">
-                                <?php echo $data['mobile'];?>
-                            </label>
-                        </div>
-                      </div>
+                      
                         <div class="form-actions">
-                          <a class="btn" href="index.php">Back</a>
+                          <a class="btn" href="OrdersList.php">Tilbake</a>
                        </div>
                      
                       
-                    </div>
+                    </form>
                 </div>
                  
     </div> <!-- /container -->
   </body>
+  <?php
+    require_once("../../footer.html");
+?> 
 </html>

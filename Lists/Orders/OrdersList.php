@@ -22,6 +22,7 @@
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
+					  <th>ID</th>
                       <th>Referanse</th>
                       <th>E-post</th>
                       <th>Valg</th>
@@ -34,6 +35,8 @@
                    $sql = 'SELECT * FROM orders ORDER BY OrderID DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
+							
+							echo '<td>'. $row['OrderID'] . '</td>';
                             echo '<td>'. $row['Reference'] . '</td>';
                             echo '<td>'. $row['Email'] . '</td>';
                             echo '<td width=250>';
@@ -51,6 +54,27 @@
             </table>
         </div>
     </div> <!-- /container -->
+<?php
+	@$endreStudentKnapp=$_POST ["endreStudentKnapp"];
+    if ($endreStudentKnapp)
+        {
+            $brukernavn=$_POST ["brukernavn"];
+            $fornavn=$_POST ["fornavn"];
+            $etternavn=$_POST ["etternavn"];
+            $klassekode=$_POST ["klassekode"];
+            $bildenr=$_POST ["bildenr"];
+            if (!$brukernavn || !$fornavn || !$etternavn || !$klassekode)
+                {
+                    print ("Alle felt må fylles ut"); 
+                }
+            else
+                {
+                    $sqlSetning="UPDATE student SET fornavn='$fornavn', etternavn='$etternavn', klassekode='$klassekode', bildenr='$bildenr' WHERE brukernavn='$brukernavn';";
+                    mysqli_query($db,$sqlSetning) or die ("ikke mulig å endre data i databasen");
+                    print ("Studenten med brukernavn $brukernavn er nå endret<br />");
+                }
+        }
+?>
   </body>
   <?php
     require_once("../../footer.html");
