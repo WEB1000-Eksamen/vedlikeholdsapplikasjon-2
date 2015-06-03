@@ -1,24 +1,24 @@
 <?php
     require '../database.php';
     require_once("../../top.html");
-    $RoomtypeID = 0;
+    $HotelID = 0;
      
-    if ( !empty($_GET['RoomtypeID'])) {
-        $RoomtypeID = $_REQUEST['RoomtypeID'];
+    if ( !empty($_GET['HotelID'])) {
+        $HotelID = $_REQUEST['HotelID'];
     }
      
     if ( !empty($_POST)) {
         // keep track post values
-        $RoomtypeID = $_POST['RoomtypeID'];
+        $HotelID = $_POST['HotelID'];
          
         // delete data
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM Roomtypes  WHERE RoomtypeID = ?";
+        $sql = "DELETE FROM hotels  WHERE HotelID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomtypeID));
+        $q->execute(array($HotelID));
         Database::disconnect();
-        header("Location: RoomtypesList.php");
+        header("Location: HotelsList.php");
          
     }
 ?>
@@ -39,12 +39,12 @@
                         <h3>Slett bestilling</h3>
                     </div>
                      
-                    <form class="form" action="deleteroomtypes.php" method="post">
-                      <input type="hidden" name="RoomtypeID" value="<?php echo $RoomtypeID;?>"/>
+                    <form class="form" action="deletehotels.php" method="post">
+                      <input type="hidden" name="HotelID" value="<?php echo $HotelID;?>"/>
                       <p class="alert alert-error"> Er du sikker?</p>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-danger">Ja</button>
-                          <a class="btn" href="RoomtypesList.php">Nei</a>
+                          <a class="btn" href="HotelsList.php">Nei</a>
                         </div>
                     </form>
                 </div>

@@ -20,18 +20,18 @@
         // validate input
         $valid = true;
         if (empty($RoomtypeName)) {
-            $nameError = 'Please enter RoomtypeName';
+            $nameError = 'Venligts fyll inn navn';
             $valid = false;
         }
 
         if (empty($Beds)) {
-            $BedsError = 'Please enter Beds';
+            $BedsError = 'Venligts fyll inn antall Senger';
             $valid = false;
         }
 
 
         if (empty($Price)) {
-            $PriceError = 'Please enter Price';
+            $PriceError = 'Venligts fyll inn pris';
             $valid = false;
         }
               
@@ -66,9 +66,9 @@
                     <form class="form" action="createroomtypes.php" method="post">
                       
                       <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-                        <label class="control-label">RoomtypeName</label>
+                        <label class="control-label">Romtypenavn</label>
                         <div class="controls">
-                            <input name="RoomtypeName" type="text"  placeholder="RoomtypeName" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
+                            <input name="RoomtypeName" type="text"  placeholder="F.eks Suite" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
                             <?php if (!empty($nameError)): ?>
                                 <span class="help-inline"><?php echo $nameError;?></span>
                             <?php endif; ?>
@@ -77,9 +77,9 @@
 
 
                        <div class="control-group <?php echo !empty($BedsError)?'error':'';?>">
-                        <label class="control-label">Beds</label>
+                        <label class="control-label">Antall senger</label>
                         <div class="controls">
-                            <input name="Beds" type="text"  placeholder="Beds" value="<?php echo !empty($Beds)?$Beds:'';?>">
+                            <input name="Beds" type="text"  placeholder="F.eks 4" value="<?php echo !empty($Beds)?$Beds:'';?>">
                             <?php if (!empty($nameError)): ?>
                                 <span class="help-inline"><?php echo $BedsError;?></span>
                             <?php endif; ?>
@@ -88,9 +88,9 @@
 
 
                         <div class="control-group <?php echo !empty($PriceError)?'error':'';?>">
-                        <label class="control-label">Price</label>
+                        <label class="control-label">Pris</label>
                         <div class="controls">
-                            <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
+                            <input name="Price" type="text"  placeholder="F.eks 200" value="<?php echo !empty($Price)?$Price:'';?>">
                             <?php if (!empty($PriceError)): ?>
                                 <span class="help-inline"><?php echo $PriceError;?></span>
                             <?php endif; ?>
@@ -99,7 +99,7 @@
 
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Registrer</button>
-                          <a class="btn" href="OrdersList.php">Back</a>
+                          <a class="btn" href="RoomtypesList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>

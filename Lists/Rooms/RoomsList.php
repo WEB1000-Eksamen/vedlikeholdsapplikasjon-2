@@ -13,40 +13,34 @@
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
     <div class="container">
             <div class="row">
-                <h3>Romtype register</h3>
+                <h3>Rom-register</h3>
             </div>
             <div class="row">
                 <p>
-                    <a href="createroomtypes.php" class="btn btn-success">Registrer</a>
+                    <a href="createrooms.php" class="btn btn-success">Registrer</a>
                 </p>
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
                      <th>ID</th>
-                      <th>Navn</th>
-                      <th>Senger</th>
-                      <th>BildeID</th>
-                      <th>Pris</th>
+                      <th>Romnummer</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
                    include '../database.php';
                    $pdo = Database::connect();
-                   $sql = 'SELECT * FROM roomtypes ORDER BY RoomtypeID DESC';
+                   $sql = 'SELECT * FROM rooms ORDER BY RoomID DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
-                            echo '<td>'. $row['RoomtypeID'] . '</td>';
-                            echo '<td>'. $row['RoomtypeName'] . '</td>';
-                            echo '<td>'. $row['Beds'] . '</td>';
-                             echo '<td>'. $row['Price'] . '</td>';
-                            echo '<td>'. $row['ImageID'] . '</td>';
+                            echo '<td>'. $row['RoomID'] . '</td>';
+                            echo '<td>'. $row['RoomNumber'] . '</td>';
                             echo '<td width=250>';
-                                echo '<a class="btn" href="readroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Se</a>';
+                                echo '<a class="btn" href="readrooms.php?RoomID='.$row['RoomID'].'">Se</a>';
                                 echo ' ';
-                                echo '<a class="btn btn-success" href="updateroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Oppdater</a>';
+                                echo '<a class="btn btn-success" href="updaterooms.php?RoomID='.$row['RoomID'].'">Oppdater</a>';
                                 echo ' ';
-                                echo '<a class="btn btn-danger" href="deleteroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Slett</a>';
+                                echo '<a class="btn btn-danger" href="deleterooms.php?RoomID='.$row['RoomID'].'">Slett</a>';
                                 echo '</td>';
                             echo '</tr>';
                    }

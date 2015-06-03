@@ -2,61 +2,67 @@
     require '../database.php';
     require_once("../../top.html");
  
-    $OrderID = null;
-    if ( !empty($_GET['OrderID'])) {
-        $OrderID = $_REQUEST['OrderID'];
+    $RoomtypeID = null;
+    if ( !empty($_GET['RoomtypeID'])) {
+        $RoomtypeID = $_REQUEST['RoomtypeID'];
     }
      
-    if ( null==$OrderID ) {
-        header("Location: OrdersList.php");
+    if ( null==$RoomtypeID ) {
+        header("Location: RoomtypesList.php");
     }
      
     if ( !empty($_POST)) {
         // keep track validation errors
-        $ReferenceError = null;
-        $EmailError = null;
+        $RoomtypeNameError = null;
+        $BedsError = null;
          
         // keep track post values
-        $Reference = $_POST['Reference'];
-        $Email = $_POST['Email'];
+        $RoomtypeName = $_POST['RoomtypeName'];
+        $Beds = $_POST['Beds'];
          
+        $RoomtypeName = $_POST['RoomtypeName'];
+        $Beds = $_POST['Beds'];
+        $Price = $_POST['Price'];
+
+
         // validate input
         $valid = true;
        
-        if (empty($Reference)) {
-            $ReferenceError = 'Please enter Reference';
+        if (empty($RoomtypeName)) {
+            $RoomtypeNameError = 'Please enter RoomtypeName';
             $valid = false;
         }
          
-        if (empty($Email)) {
-            $EmailError = 'Please enter Email Address';
-            $valid = false;
-        } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
-            $EmailError = 'Please enter a valid Email Address';
+           if (empty($Beds)) {
+            $BedsError = 'Please enter Beds';
             $valid = false;
         }
-         
-      
+
+          if (empty($Price)) {
+            $PriceError = 'Please enter Price';
+            $valid = false;
+        }
          
         // update data
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE orders set Reference = ?, Email = ? WHERE OrderID = ?";
+            $sql = "UPDATE roomtypes set RoomtypeName = ?, Beds = ?, Price = ? WHERE RoomtypeID = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($Reference,$Email,$OrderID));
+            $q->execute(array($RoomtypeName,$Beds,$Price,$RoomtypeID));
             Database::disconnect();
-            header("Location: OrdersList.php");
+            header("Location: RoomtypesList.php");
         }
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM orders where OrderID = ?";
+        $sql = "SELECT * FROM roomtypes where RoomtypeID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($OrderID));
+        $q->execute(array($RoomtypeID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-        $Reference = $data['Reference'];
-        $Email = $data['Email'];
+        $RoomtypeName = $data['RoomtypeName'];
+        $Beds = $data['Beds'];
+        $Price = $data['Price'];
         Database::disconnect();
     }
 ?>
@@ -75,33 +81,46 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Oppdater Bestilling</h3>
+                        <h3>Oppdater romtype</h3>
                     </div>
              
-                    <form class="form" action="updateorder.php?OrderID=<?php echo $OrderID?>" method="post">
+                    <form class="form" action="updateroomtypes.php?RoomtypeID=<?php echo $RoomtypeID?>" method="post">
                       
 
-                      <div class="control-group <?php echo !empty($ReferenceError)?'error':'';?>">
-                        <label class="control-label">Referanse</label>
+                      <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
+                        <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="Reference" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
-                            <?php if (!empty($ReferenceError)): ?>
-                                <span class="help-inline"><?php echo $ReferenceError;?></span>
+                            <input name="RoomtypeName" type="text"  placeholder="RoomtypeName" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
+                            <?php if (!empty($RoomtypeNameError)): ?>
+                                <span class="help-inline"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
-                          <div class="control-group <?php echo !empty($EmailError)?'error':'';?>">
-                        <label class="control-label">Email</label>
+                          <div class="control-group <?php echo !empty($BedsError)?'error':'';?>">
+                        <label class="control-label">Antall Senger</label>
                         <div class="controls">
-                            <input name="Email" type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
-                            <?php if (!empty($EmailError)): ?>
-                                <span class="help-inline"><?php echo $EmailError;?></span>
+                            <input name="Beds" type="text" placeholder="Beds Address" value="<?php echo !empty($Beds)?$Beds:'';?>">
+                            <?php if (!empty($BedsError)): ?>
+                                <span class="help-inline"><?php echo $BedsError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
+
+                      <div class="control-group <?php echo !empty($PriceError)?'error':'';?>">
+                        <label class="control-label">Pris</label>
+                        <div class="controls">
+                            <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
+                            <?php if (!empty($PriceError)): ?>
+                                <span class="help-inline"><?php echo $PriceError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+
+
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Oppdater</button>
-                          <a class="btn" href="OrdersList.php">Tilbake</a>
+                          <a class="btn" href="RoomtypesList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>

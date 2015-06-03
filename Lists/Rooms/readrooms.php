@@ -1,19 +1,19 @@
 <?php
     require '../database.php';
     require_once("../../top.html");
-    $RoomtypeID = null;
-    if ( !empty($_GET['RoomtypeID'])) {
-        $RoomtypeID = $_REQUEST['RoomtypeID'];
+    $RoomID = null;
+    if ( !empty($_GET['RoomID'])) {
+        $RoomID = $_REQUEST['RoomID'];
     }
      
-    if ( null==$RoomtypeID ) {
-        header("Location: RoomtypesList.php");
+    if ( null==$RoomID ) {
+        header("Location: RoomsList.php");
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM roomtypes where RoomtypeID = ?";
+        $sql = "SELECT * FROM Rooms where RoomID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomtypeID));
+        $q->execute(array($RoomID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
     }
@@ -36,38 +36,30 @@
                         <h3>Valgt romtype</h3>
                     </div>
                      
-                    <form class="form" action="updateorder.php?RoomtypeID=<?php echo $RoomtypeID?>" method="post">
+                    <form class="form" action="updaterooms.php?RoomID=<?php echo $RoomID?>" method="post">
 
 
                       <div class="control-group">
-                        <label class="control-label">Navn</label>
+                        <label class="control-label">ID</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['RoomtypeName'];?>
+                                <?php echo $data['RoomID'];?>
                             </label>
                         </div>
                       </div>
 
                        <div class="control-group">
-                        <label class="control-label">Senger</label>
+                        <label class="control-label">Romnummer</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['Beds'];?>
+                                <?php echo $data['RoomNumber'];?>
                             </label>
                         </div>
                       </div>
                       
-                      <div class="control-group">
-                        <label class="control-label">Pris</label>
-                        <div class="controls">
-                            <label class="checkbox">
-                                <?php echo $data['Price'];?>
-                            </label>
-                        </div>
-                      </div>
                       
                         <div class="form-actions">
-                          <a class="btn" href="RoomtypesList.php">Tilbake</a>
+                          <a class="btn" href="RoomsList.php">Tilbake</a>
                        </div>
                      
                       

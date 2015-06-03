@@ -13,42 +13,47 @@
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
     <div class="container">
             <div class="row">
-                <h3>Romtype register</h3>
+                <h3>Hotell register</h3>
             </div>
             <div class="row">
                 <p>
-                    <a href="createroomtypes.php" class="btn btn-success">Registrer</a>
+                    <a href="createhotels.php" class="btn btn-success">Registrer</a>
                 </p>
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
                      <th>ID</th>
-                      <th>Navn</th>
-                      <th>Senger</th>
+                      <th>Hotellnavn</th>
+                      <th>LandID</th>
                       <th>BildeID</th>
-                      <th>Pris</th>
+                      <th>Beskrivelse</th>
+                      <th>Adresse</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
                    include '../database.php';
                    $pdo = Database::connect();
-                   $sql = 'SELECT * FROM roomtypes ORDER BY RoomtypeID DESC';
+                   $sql = 'SELECT * FROM Hotels ORDER BY HotelID DESC';
                    foreach ($pdo->query($sql) as $row) {
+                     $ellipsis = (strlen($row['Description']) >= 30) ? '...' : '';
                             echo '<tr>';
-                            echo '<td>'. $row['RoomtypeID'] . '</td>';
-                            echo '<td>'. $row['RoomtypeName'] . '</td>';
-                            echo '<td>'. $row['Beds'] . '</td>';
-                             echo '<td>'. $row['Price'] . '</td>';
-                            echo '<td>'. $row['ImageID'] . '</td>';
-                            echo '<td width=250>';
-                                echo '<a class="btn" href="readroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Se</a>';
+                            echo '<td>'. $row['HotelID'] . '</td>';
+                            echo '<td>'. $row['HotelName'] . '</td>';
+                            echo '<td>'. $row['CountryID'] . '</td>';
+                           echo '<td>'. $row['ImageID'] . '</td>';
+                         
+                            echo '<td>'. substr($row['Description'], 0, 30) . $ellipsis . '</td>';
+                            echo '<td>'. $row['Address'] . '</td>';
+                            echo '<td width=300>';
+                                echo '<a class="btn" href="readhotels.php?HotelID='.$row['HotelID'].'">Se</a>';
                                 echo ' ';
-                                echo '<a class="btn btn-success" href="updateroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Oppdater</a>';
+                                echo '<a class="btn btn-success" href="updatehotels.php?HotelID='.$row['HotelID'].'">Oppdater</a>';
                                 echo ' ';
-                                echo '<a class="btn btn-danger" href="deleteroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Slett</a>';
+                                echo '<a class="btn btn-danger" href="deletehotels.php?HotelID='.$row['HotelID'].'">Slett</a>';
                                 echo '</td>';
                             echo '</tr>';
+
                    }
                    Database::disconnect();
                   ?>
