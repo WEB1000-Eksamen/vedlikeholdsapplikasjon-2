@@ -5,28 +5,28 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $FromDateError = null;
-        $ToDateError = null;
+         $datepickerError = null;
+         $datepickertoError = null;
         $HRIDError = null;
         $OrderIDError = null;
    
-        
+       
          
         // keep track post values
-        $FromDate = $_POST['FromDate'];
-        $ToDate = $_POST['ToDate'];
+         $datepicker = $_POST['FromDate'];
+         $datepickerto = $_POST['ToDate'];
         $HRID = $_POST['HRID'];
         $OrderID = $_POST['OrderID'];
          
         // validate input
         $valid = true;
-        if (empty($FromDate)) {
-            $FromDateError = 'Venligst fyll inn Hotellnavn';
+        if (empty( $datepicker)) {
+             $datepickerError = 'Venligst fyll inn Hotellnavn';
             $valid = false;
         }
          
-           if (empty($ToDate)) {
-            $ToDateError = 'Venligst velg LandID';
+           if (empty( $datepickerto)) {
+             $datepickerError = 'Venligst velg LandID';
             $valid = false;
         }
 
@@ -45,9 +45,9 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO hotels (FromDate,ToDate,HRID,OrderID) values(?, ?, ?, ?)";
+            $sql = "INSERT INTO bookings (FromDate,ToDate,HRID,OrderID) values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($FromDate,$ToDate,$HRID,$OrderID,$HotelID));
+            $q->execute(array( $datepicker, $datepickerto,$HRID,$OrderID));
             Database::disconnect();
            header("Location: BookingsList.php");
         }
@@ -67,8 +67,8 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#datepickerTo" ).datepicker();
-     $( "#datepickerFrom" ).datepicker();
+    $( "#datepickerTo" ).datepicker({dateFormat: 'yy-mm-dd'});
+     $( "#datepickerFrom" ).datepicker({dateFormat: 'yy-mm-dd'});
   });
   </script>
 </head>
@@ -83,21 +83,21 @@
              
                     <form class="form" action="createbookings.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($FromDateError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty( $datepickerError)?'error':'';?>">
                         <label class="control-label">Fra dato</label>
                         <div class="controls">
-                            <input name="FromDate" id="datepickerFrom" type="text"  placeholder="fra dato..." value="<?php echo !empty($FromDate)?$FromDate:'';?>">
-                            <?php if (!empty($FromDateError)): ?>
-                                <span class="help-inline"><?php echo $FromDateError;?></span>
+                            <input name="FromDate" id="datepickerFrom" type="text"  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <?php if (!empty( $datepickerError)): ?>
+                                <span class="help-inline"><?php echo  $datepickerError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
-                          <div class="control-group <?php echo !empty($ToDateError)?'error':'';?>">
+                          <div class="control-group <?php echo !empty( $datepickertoError)?'error':'';?>">
                         <label class="control-label">Til dato</label>
                         <div class="controls">
-                            <input name="ToDate" id="datepickerTo" type="text" placeholder="Til dato..." value="<?php echo !empty($ToDate)?$ToDate:'';?>">
-                            <?php if (!empty($ToDateError)): ?>
-                                <span class="help-inline"><?php echo $ToDateError;?></span>
+                            <input name="ToDate" id="datepickerTo" type="text" placeholder="Til dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <?php if (!empty( $datepickertoError)): ?>
+                                <span class="help-inline"><?php echo  $datepickertoError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
@@ -105,7 +105,7 @@
                       <div class="control-group <?php echo !empty($HRIDError)?'error':'';?>">
                         <label class="control-label">HRID</label>
                         <div class="controls">
-                            <input name="HRID" type="text"  placeholder="Velg hotellromID" value="<?php echo !empty($HRID)?$HRID:'';?>">
+                             <?php require_once("../Listebokser/listeboks-BookingsID.php"); ?>
                             <?php if (!empty($HRIDError)): ?>
                                 <span class="help-inline"><?php echo $HRIDError;?></span>
                             <?php endif; ?>
@@ -115,7 +115,7 @@
                       <div class="control-group <?php echo !empty($OrderIDError)?'error':'';?>">
                         <label class="control-label">Ordre ID</label>
                         <div class="controls">
-                            <input name="OrderID" type="text"  placeholder="Velg ordre ID" value="<?php echo !empty($OrderID)?$OrderID:'';?>">
+                            <?php require_once("../Listebokser/listeboks-OrderID.php"); ?>
                             <?php if (!empty($OrderIDError)): ?>
                                 <span class="help-inline"><?php echo $OrderIDError;?></span>
                             <?php endif; ?>

@@ -53,7 +53,7 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "INSERT INTO hotels (HotelName,CountryID,ImageID,Description,Address) values(?, ?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($HotelName,$CountryID,$ImageID,$Description,$Address,$HotelID));
+            $q->execute(array($HotelName,$CountryID,$ImageID,$Description,$Address));
             Database::disconnect();
            header("Location: HotelsList.php");
         }
@@ -86,37 +86,8 @@
                             <?php endif; ?>
                         </div>
                       </div>
-                          <div class="control-group <?php echo !empty($CountryIDError)?'error':'';?>">
-                        <label class="control-label">LandID</label>
-                        <div class="controls">
-                            <input name="CountryID" type="text" placeholder="F.eks 1" value="<?php echo !empty($CountryID)?$CountryID:'';?>">
-                            <?php if (!empty($CountryIDError)): ?>
-                                <span class="help-inline"><?php echo $CountryIDError;?></span>
-                            <?php endif;?>
-                        </div>
-                      </div>
 
-                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
-                        <label class="control-label">ImageID</label>
-                        <div class="controls">
-                            <input name="ImageID" type="text"  placeholder="F.eks 1" value="<?php echo !empty($ImageID)?$ImageID:'';?>">
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="help-inline"><?php echo $ImageIDError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
-                        <label class="control-label">Beskrivelse</label>
-                        <div class="controls">
-                            <input name="Description" type="text"  placeholder="Fyll inn beskrivelse her..." value="<?php echo !empty($Description)?$Description:'';?>">
-                            <?php if (!empty($DescriptionError)): ?>
-                                <span class="help-inline"><?php echo $DescriptionError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
+                       <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
                         <label class="control-label">Adresse</label>
                         <div class="controls">
                             <input name="Address" type="text"  placeholder="Slottsplassen 1,0010 Oslo" value="<?php echo !empty($Address)?$Address:'';?>">
@@ -126,6 +97,35 @@
                         </div>
                       </div>
 
+                          <div class="control-group <?php echo !empty($CountryIDError)?'error':'';?>">
+                        <label class="control-label">LandID</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-CountryID.php"); ?>
+                            <?php if (!empty($CountryIDError)): ?>
+                                <span class="help-inline"><?php echo $CountryIDError;?></span>
+                            <?php endif;?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                        <label class="control-label">ImageID</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
+                            <?php if (!empty($ImageIDError)): ?>
+                                <span class="help-inline"><?php echo $ImageIDError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
+                        <label class="control-label">Beskrivelse</label>
+                        <div class="controls">
+                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Beskrivelse..." ><?php echo !empty($Description)?$Description:'';?></textarea>
+                            <?php if (!empty($DescriptionError)): ?>
+                                <span class="help-inline"><?php echo $DescriptionError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Registrer</button>
                           <a class="btn" href="HotelsList.php">Tilbake</a>

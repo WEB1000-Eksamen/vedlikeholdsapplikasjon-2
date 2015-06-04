@@ -1,19 +1,19 @@
 <?php
     require '../database.php';
     require_once("../../top.html");
-    $RoomID = null;
-    if ( !empty($_GET['RoomID'])) {
-        $RoomID = $_REQUEST['RoomID'];
+    $BookingID = null;
+    if ( !empty($_GET['BookingID'])) {
+        $BookingID = $_REQUEST['BookingID'];
     }
      
-    if ( null==$RoomID ) {
-        header("Location: RoomsList.php");
+    if ( null==$BookingID ) {
+        header("Location: BookingsList.php");
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM Rooms where RoomID = ?";
+        $sql = "SELECT * FROM bookings where BookingID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomID));
+        $q->execute(array($BookingID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
     }
@@ -33,33 +33,58 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Valgt romtype</h3>
+                        <h3>Valgt hotell</h3>
                     </div>
                      
-                    <form class="form" action="updaterooms.php?RoomID=<?php echo $RoomID?>" method="post">
+                    <form class="form" action="updatebookings.php?BookingID=<?php echo $BookingID?>" method="post">
 
 
                       <div class="control-group">
-                        <label class="control-label">ID</label>
+                        <label class="control-label">HotellID</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['RoomID'];?>
+                                <?php echo $data['BookingID'];?>
                             </label>
                         </div>
                       </div>
 
                        <div class="control-group">
-                        <label class="control-label">Romnummer</label>
+                        <label class="control-label">Hotellnavn</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data['RoomNumber'];?>
+                                <?php echo $data['FromDate'];?>
                             </label>
                         </div>
                       </div>
                       
-                      
-                        <div class="form-actions">
-                          <a class="btn" href="RoomsList.php">Tilbake</a>
+                      <div class="control-group">
+                        <label class="control-label">Land ID</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['ToDate'];?>
+                            </label>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label">ImageID</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['HRID'];?>
+                            </label>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label">Beskrivelse</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['OrderID'];?>
+                            </label>
+                        </div>
+                      </div>
+                           <div class="form-actions">
+                          <a class="btn" href="BookingsList.php">Tilbake</a>
                        </div>
                      
                       

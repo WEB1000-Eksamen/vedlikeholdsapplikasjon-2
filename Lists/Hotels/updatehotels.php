@@ -131,23 +131,24 @@
                             <?php endif; ?>
                         </div>
                       </div>
-
-                      <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
-                        <label class="control-label">Beskrivelse</label>
-                        <div class="controls">
-                            <input name="Description" type="text"  placeholder="Description" value="<?php echo !empty($Description)?$Description:'';?>">
-                            <?php if (!empty($DescriptionError)): ?>
-                                <span class="help-inline"><?php echo $DescriptionError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
+                        
+                         <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
                         <label class="control-label">Adresse</label>
                         <div class="controls">
                             <input name="Address" type="text"  placeholder="Address" value="<?php echo !empty($Address)?$Address:'';?>">
                             <?php if (!empty($AddressError)): ?>
                                 <span class="help-inline"><?php echo $AddressError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+
+                      <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
+                        <label class="control-label">Beskrivelse</label>
+                        <div>
+                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Beskrivelse..." ><?php echo !empty($Description)?$Description:'';?></textarea>
+                            <?php if (!empty($DescriptionError)): ?>
+                                <span class="help-inline"><?php echo $DescriptionError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

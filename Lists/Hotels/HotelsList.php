@@ -28,6 +28,7 @@
                       <th>BildeID</th>
                       <th>Beskrivelse</th>
                       <th>Adresse</th>
+                      <th>Valg</th>
                     </tr>
                   </thead>
                   <tbody>

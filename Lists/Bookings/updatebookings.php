@@ -2,28 +2,50 @@
     require '../database.php';
     require_once("../../top.html");
  
-    $RoomID = null;
-    if ( !empty($_GET['RoomID'])) {
-        $RoomID = $_REQUEST['RoomID'];
+    $BookingID = null;
+    if ( !empty($_GET['BookingID'])) {
+        $BookingID = $_REQUEST['BookingID'];
     }
      
-    if ( null==$RoomID ) {
+    if ( null==$BookingID ) {
         header("Location: RoomsList.php");
     }
      
     if ( !empty($_POST)) {
         // keep track validation errors
-        $RoomNumberError = null;
+         $datepickerError = null;
+         $datepickertoError = null;
+        $HRIDError = null;
+        $OrderIDError = null;
+   
        
          
         // keep track post values
-        $RoomNumber = $_POST['RoomNumber'];
+         $datepicker = $_POST['FromDate'];
+         $datepickerto = $_POST['ToDate'];
+        $HRID = $_POST['HRID'];
+        $OrderID = $_POST['OrderID'];
       
         // validate input
         $valid = true;
        
-        if (empty($RoomNumber)) {
-            $RoomNumberError = 'Venligst fyll inn rumnummer';
+       if (empty( $datepicker)) {
+             $datepickerError = 'Venligst fyll inn Hotellnavn';
+            $valid = false;
+        }
+         
+           if (empty( $datepickerto)) {
+             $datepickerError = 'Venligst velg LandID';
+            $valid = false;
+        }
+
+         if (empty($HRID)) {
+            $HRIDError = 'Venligst velg HRID';
+            $valid = false;
+        }
+
+         if (empty($OrderID)) {
+            $OrderIDError = 'Venligst fyll inn beskrivelse';
             $valid = false;
         }
          
@@ -31,20 +53,23 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE rooms set RoomNumber = ? WHERE RoomID = ?";
+            $sql = "UPDATE bookings set FromDate = ?, ToDate = ?, HRID = ?, OrderID = ? WHERE BookingID = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($RoomNumber,$RoomID));
+            $q->execute(array($datepicker,$datepickerto,$HRID,$OrderID,$BookingID));
             Database::disconnect();
-            header("Location: RoomsList.php");
+            header("Location: BookingsList.php");
         }
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM rooms where RoomID = ?";
+        $sql = "SELECT * FROM bookings where BookingID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomID));
+        $q->execute(array($BookingID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-        $RoomNumber = $data['RoomNumber'];
+        $datepicker = $data['FromDate'];
+        $datepickerto = $data['ToDate'];
+        $HRID = $data['HRID'];
+        $OrderID = $data['OrderID'];
         Database::disconnect();
     }
 ?>
@@ -56,6 +81,18 @@
     <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
     <script src="../js/bootstrap.min.js"></script>
+
+       <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepickerTo" ).datepicker({dateFormat: 'yy-mm-dd'});
+     $( "#datepickerFrom" ).datepicker({dateFormat: 'yy-mm-dd'});
+  });
+  </script>
 </head>
  
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
@@ -66,15 +103,43 @@
                         <h3>Oppdater romtype</h3>
                     </div>
              
-                    <form class="form" action="updaterooms.php?RoomID=<?php echo $RoomID?>" method="post">
+                    <form class="form" action="updatebookings.php?BookingID=<?php echo $BookingID?>" method="post">
                       
-
-                      <div class="control-group <?php echo !empty($RoomNumberError)?'error':'';?>">
-                        <label class="control-label">Romnummer</label>
+                    <div class="control-group <?php echo !empty( $datepickerError)?'error':'';?>">
+                        <label class="control-label">Fra dato</label>
                         <div class="controls">
-                            <input name="RoomNumber" type="text"  placeholder="RoomNumber" value="<?php echo !empty($RoomNumber)?$RoomNumber:'';?>">
-                            <?php if (!empty($RoomNumberError)): ?>
-                                <span class="help-inline"><?php echo $RoomNumberError;?></span>
+                            <input name="FromDate" id="datepickerFrom" type="text"  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <?php if (!empty( $datepickerError)): ?>
+                                <span class="help-inline"><?php echo  $datepickerError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+                          <div class="control-group <?php echo !empty( $datepickertoError)?'error':'';?>">
+                        <label class="control-label">Til dato</label>
+                        <div class="controls">
+                            <input name="ToDate" id="datepickerTo" type="text" placeholder="Til dato..." value="<?php echo !empty( $datepickerto)? $datepickerto:'';?>">
+                            <?php if (!empty( $datepickertoError)): ?>
+                                <span class="help-inline"><?php echo  $datepickertoError;?></span>
+                            <?php endif;?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($HRIDError)?'error':'';?>">
+                        <label class="control-label">HRID</label>
+                        <div class="controls">
+                             <?php require_once("../Listebokser/listeboks-BookingsID.php"); ?>
+                            <?php if (!empty($HRIDError)): ?>
+                                <span class="help-inline"><?php echo $HRIDError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($OrderIDError)?'error':'';?>">
+                        <label class="control-label">Ordre ID</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-OrderID.php"); ?>
+                            <?php if (!empty($OrderIDError)): ?>
+                                <span class="help-inline"><?php echo $OrderIDError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -84,7 +149,7 @@
 
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Oppdater</button>
-                          <a class="btn" href="RoomsList.php">Tilbake</a>
+                          <a class="btn" href="BookingsList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>

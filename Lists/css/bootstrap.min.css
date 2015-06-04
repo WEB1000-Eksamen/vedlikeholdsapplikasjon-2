@@ -29,3 +29,18 @@ label {
    text-align: center;
    margin:auto;
 }
+
+#Beskrivelse {
+   width: 150px;
+
+}
+
+textarea {
+    max-width: 500px; 
+    max-height: 250px;
+    min-width: 500px; 
+    min-height: 250px;
+}
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
