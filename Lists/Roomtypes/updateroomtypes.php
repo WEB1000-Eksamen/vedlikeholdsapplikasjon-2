@@ -105,7 +105,7 @@
                         <div class="controls">
                             <input name="RoomtypeName" type="text"  placeholder="RoomtypeName" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
                             <?php if (!empty($RoomtypeNameError)): ?>
-                                <span class="help-inline"><?php echo $RoomtypeNameError;?></span>
+                                <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -114,7 +114,7 @@
                         <div class="controls">
                             <input name="Beds" type="text" placeholder="Beds Address" value="<?php echo !empty($Beds)?$Beds:'';?>">
                             <?php if (!empty($BedsError)): ?>
-                                <span class="help-inline"><?php echo $BedsError;?></span>
+                                <span class="show text-danger"><?php echo $BedsError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
@@ -124,7 +124,7 @@
                         <div class="controls">
                             <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
                             <?php if (!empty($PriceError)): ?>
-                                <span class="help-inline"><?php echo $PriceError;?></span>
+                                <span class="show text-danger"><?php echo $PriceError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -134,7 +134,7 @@
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
                             <?php if (!empty($ImageIDError)): ?>
-                                <span class="help-inline"><?php echo $ImageIDError;?></span>
+                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
