@@ -13,7 +13,7 @@
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
     <div class="container">
             <div class="row">
-                <h3>Romtype register</h3>
+                <h3>Romtyperegister</h3>
             </div>
             <div class="row">
                 <p>
@@ -43,8 +43,7 @@
                              echo '<td>'. $row['Price'] . '</td>';
                             echo '<td>'. $row['ImageID'] . '</td>';
                             echo '<td width=250>';
-                                echo '<a class="btn" href="readroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Se</a>';
-                                echo ' ';
+                               
                                 echo '<a class="btn btn-success" href="updateroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Oppdater</a>';
                                 echo ' ';
                                 echo '<a class="btn btn-danger" href="deleteroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Slett</a>';

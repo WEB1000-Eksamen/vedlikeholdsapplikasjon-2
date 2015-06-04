@@ -23,18 +23,33 @@
         // validate input
         $valid = true;
        
-       if (empty($Reference)||!ctype_alnum($Reference)) {
-            $ReferenceError = 'Venligst fyll inn Referanse';
-            $valid = false;
-        }
-         
-        if (empty($Email)) {
-            $EmailError = 'Venligst fyll inn Email';
+       if (empty($Email)) {
+            $EmailError = 'Vennligst fyll inn Email';
             $valid = false;
         } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
             $EmailError = 'Ugyldig Email';
             $valid = false;
         }
+
+        if (empty($Reference)) {
+            $ReferenceError = 'Vennligst fyll inn Referanse';
+            $valid = false;
+        }  else if (!ctype_alnum($Reference)) {
+            $ReferenceError = 'Ugyldig referanse (Ikke bruk ! # ¤ eller lignende)';
+            $valid = false;
+        }
+
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM orders where Reference = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($Reference));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $ReferenceError = 'Refferansen er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
          
       
          
@@ -86,7 +101,7 @@
                         <div class="controls">
                             <input name="Reference" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
                             <?php if (!empty($ReferenceError)): ?>
-                                <span class="help-inline"><?php echo $ReferenceError;?></span>
+                                <span class="show text-danger"><?php echo $ReferenceError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -95,7 +110,7 @@
                         <div class="controls">
                             <input name="Email" type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
                             <?php if (!empty($EmailError)): ?>
-                                <span class="help-inline"><?php echo $EmailError;?></span>
+                                <span class="show text-danger"><?php echo $EmailError;?></span>
                             <?php endif;?>
                         </div>
                       </div>

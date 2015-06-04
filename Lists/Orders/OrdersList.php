@@ -13,7 +13,7 @@
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
     <div class="container">
             <div class="row">
-                <h3>Bestillings register</h3>
+                <h3>Bestillingsregister</h3>
             </div>
             <div class="row">
             	<p>
@@ -40,8 +40,7 @@
                             echo '<td>'. $row['Reference'] . '</td>';
                             echo '<td>'. $row['Email'] . '</td>';
                             echo '<td width=250>';
-                                echo '<a class="btn" href="readorder.php?OrderID='.$row['OrderID'].'">Se</a>';
-                                echo ' ';
+                                
                                 echo '<a class="btn btn-success" href="updateorder.php?OrderID='.$row['OrderID'].'">Oppdater</a>';
                                 echo ' ';
                                 echo '<a class="btn btn-danger" href="deleteorder.php?OrderID='.$row['OrderID'].'">Slett</a>';

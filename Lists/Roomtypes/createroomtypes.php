@@ -47,6 +47,21 @@
             $ImageIDError = 'Venligst velg ImageID';
             $valid = false;
         }
+
+         $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM roomtypes where RoomtypeName = ? AND Beds = ? AND Price = ? AND ImageID = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($RoomtypeName,$Beds,$Price,$ImageID));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $RoomtypeNameError = 'Romtypen er allerede registrert';
+          $BedsError = 'Romtypen er allerede registrert';
+          $PriceError = 'Romtypen er allerede registrert';
+          $ImageIDError = 'Romtypen er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
               
         // insert data
         if ($valid) {
@@ -73,7 +88,7 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Registrer en bestilling</h3>
+                        <h3>Registrer en ny romtype</h3>
                     </div>
              
                     <form class="form" action="createroomtypes.php" method="post">
@@ -115,7 +130,7 @@
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
                             <?php if (!empty($ImageIDError)): ?>
-                                <span class="help-inline"><?php echo $ImageIDError;?></span>
+                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

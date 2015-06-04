@@ -22,10 +22,25 @@
         // validate input
         $valid = true;
        
-        if (empty($RoomNumber)) {
-            $RoomNumberError = 'Venligst fyll inn rumnummer';
+       if (empty($RoomNumber)) {
+            $RoomNumberError = 'Vennligts fyll inn romnummer';
+            $valid = false;
+        } else if (ctype_alpha($RoomNumber)) {
+            $RoomNumberError = 'Ugyldig romnummer (Bruk tall)';
             $valid = false;
         }
+
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM rooms where RoomNumber = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($RoomNumber));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $RoomNumberError = 'Nummeret er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
          
         // update data
         if ($valid) {
@@ -74,7 +89,7 @@
                         <div class="controls">
                             <input name="RoomNumber" type="text"  placeholder="RoomNumber" value="<?php echo !empty($RoomNumber)?$RoomNumber:'';?>">
                             <?php if (!empty($RoomNumberError)): ?>
-                                <span class="help-inline"><?php echo $RoomNumberError;?></span>
+                                <span class="show text-danger"><?php echo $RoomNumberError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

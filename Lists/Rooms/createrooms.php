@@ -5,7 +5,7 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $NumberError = null;
+        $RoomNumberError = null;
        
         
          
@@ -14,13 +14,26 @@
       
         // validate input
         $valid = true;
-        if (empty($RoomNumber)) {
-            $NumberError = 'Venligts fyll inn navn';
+      if (empty($RoomNumber)) {
+            $RoomNumberError = 'Vennligts fyll inn romnummer';
+            $valid = false;
+        } else if (ctype_alpha($RoomNumber)) {
+            $RoomNumberError = 'Ugyldig romnummer (Bruk tall)';
             $valid = false;
         }
 
-      
-              
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM rooms where RoomNumber = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($RoomNumber));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $RoomNumberError = 'Nummeret er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
+
         // insert data
         if ($valid) {
             $pdo = Database::connect();
@@ -51,12 +64,12 @@
              
                     <form class="form" action="createrooms.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($NumberError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($RoomNumberError)?'error':'';?>">
                         <label class="control-label">Romnummer</label>
                         <div class="controls">
                             <input name="RoomNumber" type="text"  placeholder="F.eks 1" value="<?php echo !empty($RoomNumber)?$RoomNumber:'';?>">
-                            <?php if (!empty($NumberError)): ?>
-                                <span class="help-inline"><?php echo $NumberError;?></span>
+                            <?php if (!empty($RoomNumberError)): ?>
+                                <span class="show text-danger"><?php echo $RoomNumberError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

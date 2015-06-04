@@ -36,7 +36,7 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Slett bestilling</h3>
+                        <h3>Slett rom</h3>
                     </div>
                      
                     <form class="form" action="deleterooms.php" method="post">

@@ -5,7 +5,7 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $nameError = null;
+        $ReferenceError = null;
         $emailError = null;
         
          
@@ -18,17 +18,32 @@
         $valid = true;
          
         if (empty($Email)) {
-            $emailError = 'Venligst fyll inn Email';
+            $emailError = 'Vennligst fyll inn Email';
             $valid = false;
         } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
             $emailError = 'Ugyldig Email';
             $valid = false;
         }
 
-        if (empty($Reference)||!ctype_alnum($Reference)) {
-            $nameError = 'Venligst fyll inn Referanse';
+        if (empty($Reference)) {
+            $ReferenceError = 'Vennligst fyll inn Referanse';
+            $valid = false;
+        }  else if (!ctype_alnum($Reference)) {
+            $ReferenceError = 'Ugyldig referanse';
             $valid = false;
         }
+
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM orders where Reference = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($Reference));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $ReferenceError = 'Refferansen er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
          
               
         // insert data
@@ -61,12 +76,12 @@
              
                     <form class="form" action="createorder.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($ReferenceError)?'error':'';?>">
                         <label class="control-label">Referanse</label>
                         <div class="controls">
                             <input name="Reference" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
-                            <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                            <?php if (!empty($ReferenceError)): ?>
+                                <span class="show text-danger"><?php echo $ReferenceError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -76,7 +91,7 @@
                         <div class="controls">
                             <input name="Email" type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
                             <?php if (!empty($emailError)): ?>
-                                <span class="help-inline"><?php echo $emailError;?></span>
+                                <span class="show text-danger"><?php echo $emailError;?></span>
                             <?php endif;?>
                         </div>
                       </div>

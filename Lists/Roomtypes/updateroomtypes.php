@@ -54,6 +54,21 @@
             $ImageIDError = 'Venligst velg ImageID';
             $valid = false;
         }
+
+         $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM roomtypes where RoomtypeName = ? AND Beds = ? AND Price = ? AND ImageID = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($RoomtypeName,$Beds,$Price,$ImageID));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $RoomtypeNameError = 'Romtypen er allerede registrert';
+          $BedsError = 'Romtypen er allerede registrert';
+          $PriceError = 'Romtypen er allerede registrert';
+          $ImageIDError = 'Romtypen er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
          
         // update data
         if ($valid) {
