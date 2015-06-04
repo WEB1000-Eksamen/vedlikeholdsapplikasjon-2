@@ -1,7 +1,6 @@
 <?php
     require '../database.php';
     require_once("../../top.html");
-    $ImageID = 0;
      
     if ( !empty($_GET['ImageID'])) {
         $ImageID = $_REQUEST['ImageID'];
@@ -14,7 +13,7 @@
         // delete data
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM images  WHERE ImageID = ?";
+        $sql = "DELETE FROM images WHERE ImageID = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($ImageID));
         Database::disconnect();

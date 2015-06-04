@@ -13,7 +13,7 @@
 <body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
     <div class="container">
             <div class="row">
-                <h3>Hotell register</h3>
+                <h3>Bilderegister</h3>
             </div>
             <div class="row">
                 <p>
@@ -34,9 +34,9 @@
                    $sql = 'SELECT * FROM images ORDER BY ImageID DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
-                            echo '<td>'. $row['ImageID'] . '</td>';
-                            echo '<td>'. $row['URL'] . '</td>';
-                            echo '<td width=300>';
+                            echo '<td style="vertical-align: middle; text-align: center;">'. $row['ImageID'] . '</td>';
+                            echo '<td><a target="_blank" href="' . $row['URL'] . '"><img width="250px" src="' . $row['URL'] . '"></a></td>';
+                            echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                 echo '<a class="btn btn-success" href="updateImages.php?ImageID='.$row['ImageID'].'">Oppdater</a>';
                                 echo ' ';
                                 echo '<a class="btn btn-danger" href="deleteImages.php?ImageID='.$row['ImageID'].'">Slett</a>';

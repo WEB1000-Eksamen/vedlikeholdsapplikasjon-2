@@ -2,61 +2,41 @@
      
     require '../database.php';
     require_once("../../top.html");
+    require_once '../../vendor/autoload.php';
+    
+    $client = new \Imgur\Client();
+    $client->setOption('client_id', '99e41d31f15f2ea');
+    $client->setOption('client_secret', 'fb1d34f57703390c133f72a81c9bf27f531d538e');
  
-    if ( !empty($_POST)) {
-        // keep track validation errors
-        $URLError = null;
-        $CountryIDError = null;
-        $ImageIDError = null;
-        $DescriptionError = null;
-        $AddressError = null;
-   
-        
-         
-        // keep track post values
-        $HotelName = $_POST['HotelName'];
-        $CountryID = $_POST['CountryID'];
-        $ImageID = $_POST['ImageID'];
-        $Description = $_POST['Description'];
-        $Address = $_POST['Address'];
-         
-        // validate input
-        $valid = true;
-        if (empty($HotelName)) {
-            $HotelNameError = 'Venligst fyll inn Hotellnavn';
-            $valid = false;
-        }
-         
-           if (empty($CountryID)) {
-            $CountryIDError = 'Venligst velg LandID';
-            $valid = false;
-        }
+    // keep track validation errors
+    $ImageError = null;
 
-         if (empty($ImageID)) {
-            $ImageIDError = 'Venligst velg ImageID';
-            $valid = false;
-        }
+    // validate input
+    $valid = true;
 
-         if (empty($Description)) {
-            $DescriptionError = 'Venligst fyll inn beskrivelse';
-            $valid = false;
-        }
-
-         if (empty($Address)) {
-            $AddressError = 'Venligst fyll inn adresse';
-            $valid = false;
-        }
-          
+    if ( !empty($_FILES['image']['name'])) {  
         // insert data
         if ($valid) {
+            $imgurImageOptions = array(
+                'image' => base64_encode(file_get_contents($_FILES['image']['tmp_name'])),
+                'type' => 'base64',
+                'name' => $_FILES['image']['tmp_name'],
+                'title' => $_FILES['image']['name'],
+                'description' => md5($_FILES['image']['tmp_name'])
+            );
+            $imgurURL = $client->api('image')->upload($imgurImageOptions);
+            
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO hotels (HotelName,CountryID,ImageID,Description,Address) values(?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO images (URL) values (?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($HotelName,$CountryID,$ImageID,$Description,$Address));
+            $q->execute(array($imgurURL->getData()['link']));
             Database::disconnect();
-           header("Location: HotelsList.php");
+           header("Location: ImagesList.php");
         }
+    } else {
+        $ImageError = 'Vennligst velg et bilde';
+        $valid = false;
     }
 ?>
 <!DOCTYPE html>
@@ -72,63 +52,23 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Registrer en bestilling</h3>
+                        <h3>Registrer et bilde</h3>
                     </div>
              
-                    <form class="form" action="createhotels.php" method="post">
+                    <form class="form" enctype="multipart/form-data" action="createImages.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($ImageError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="HotelName" type="text"  placeholder="F.eks Lunde Hotell" value="<?php echo !empty($HotelName)?$HotelName:'';?>">
-                            <?php if (!empty($HotelNameError)): ?>
-                                <span class="help-inline"><?php echo $HotelNameError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                       <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
-                        <label class="control-label">Adresse</label>
-                        <div class="controls">
-                            <input name="Address" type="text"  placeholder="Slottsplassen 1,0010 Oslo" value="<?php echo !empty($Address)?$Address:'';?>">
-                            <?php if (!empty($AddressError)): ?>
-                                <span class="help-inline"><?php echo $AddressError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                          <div class="control-group <?php echo !empty($CountryIDError)?'error':'';?>">
-                        <label class="control-label">LandID</label>
-                        <div class="controls">
-                            <?php require_once("../Listebokser/listeboks-CountryID.php"); ?>
-                            <?php if (!empty($CountryIDError)): ?>
-                                <span class="help-inline"><?php echo $CountryIDError;?></span>
-                            <?php endif;?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
-                        <label class="control-label">ImageID</label>
-                        <div class="controls">
-                            <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="help-inline"><?php echo $ImageIDError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
-                        <label class="control-label">Beskrivelse</label>
-                        <div class="controls">
-                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Beskrivelse..." ><?php echo !empty($Description)?$Description:'';?></textarea>
-                            <?php if (!empty($DescriptionError)): ?>
-                                <span class="help-inline"><?php echo $DescriptionError;?></span>
+                            <input name="image" type="file">
+                            <?php if (!empty($ImageError)): ?>
+                                <span class="help-inline"><?php echo $ImageError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Registrer</button>
-                          <a class="btn" href="HotelsList.php">Tilbake</a>
+                          <a class="btn" href="ImagesList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>
