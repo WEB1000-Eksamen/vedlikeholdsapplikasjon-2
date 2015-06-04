@@ -27,6 +27,7 @@
                       <th>Til dato</th>
                       <th>HotelromID</th>
                       <th>OrderID</th>
+                      <th>Valg</th>
                     </tr>
                   </thead>
                   <tbody>

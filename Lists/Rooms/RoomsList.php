@@ -24,6 +24,7 @@
                     <tr>
                      <th>ID</th>
                       <th>Romnummer</th>
+                      <th>Valg</th>
                     </tr>
                   </thead>
                   <tbody>

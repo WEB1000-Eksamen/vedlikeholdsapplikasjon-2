@@ -23,16 +23,16 @@
         // validate input
         $valid = true;
        
-        if (empty($Reference)) {
-            $ReferenceError = 'Please enter Reference';
+       if (empty($Reference)||!ctype_alnum($Reference)) {
+            $ReferenceError = 'Venligst fyll inn Referanse';
             $valid = false;
         }
          
         if (empty($Email)) {
-            $EmailError = 'Please enter Email Address';
+            $EmailError = 'Venligst fyll inn Email';
             $valid = false;
         } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
-            $EmailError = 'Please enter a valid Email Address';
+            $EmailError = 'Ugyldig Email';
             $valid = false;
         }
          

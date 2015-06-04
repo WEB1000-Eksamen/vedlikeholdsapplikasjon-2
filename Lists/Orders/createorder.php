@@ -16,18 +16,20 @@
          
         // validate input
         $valid = true;
-        if (empty($Reference)) {
-            $nameError = 'Please enter Reference';
+         
+        if (empty($Email)) {
+            $emailError = 'Venligst fyll inn Email';
+            $valid = false;
+        } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
+            $emailError = 'Ugyldig Email';
+            $valid = false;
+        }
+
+        if (empty($Reference)||!ctype_alnum($Reference)) {
+            $nameError = 'Venligst fyll inn Referanse';
             $valid = false;
         }
          
-        if (empty($Email)) {
-            $emailError = 'Please enter Email Address';
-            $valid = false;
-        } else if ( !filter_var($Email,FILTER_VALIDATE_EMAIL) ) {
-            $emailError = 'Please enter a valid Email Address';
-            $valid = false;
-        }
               
         // insert data
         if ($valid) {
@@ -60,7 +62,7 @@
                     <form class="form" action="createorder.php" method="post">
                       
                       <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-                        <label class="control-label">Reference</label>
+                        <label class="control-label">Referanse</label>
                         <div class="controls">
                             <input name="Reference" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
                             <?php if (!empty($nameError)): ?>
@@ -70,7 +72,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
-                        <label class="control-label">Email Address</label>
+                        <label class="control-label">Email Addresse</label>
                         <div class="controls">
                             <input name="Email" type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
                             <?php if (!empty($emailError)): ?>

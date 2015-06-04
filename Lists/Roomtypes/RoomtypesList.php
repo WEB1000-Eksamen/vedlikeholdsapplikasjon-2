@@ -27,6 +27,7 @@
                       <th>Senger</th>
                       <th>BildeID</th>
                       <th>Pris</th>
+                      <th>Valg</th>
                     </tr>
                   </thead>
                   <tbody>

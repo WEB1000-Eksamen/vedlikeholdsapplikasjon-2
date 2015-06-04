@@ -67,8 +67,8 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#datepickerTo" ).datepicker({dateFormat: 'yy-mm-dd'});
-     $( "#datepickerFrom" ).datepicker({dateFormat: 'yy-mm-dd'});
+    $( "#datepickerTo" ).datepicker({dateFormat: 'dd-mm-yy'});
+     $( "#datepickerFrom" ).datepicker({dateFormat: 'dd-mm-yy'});
   });
   </script>
 </head>

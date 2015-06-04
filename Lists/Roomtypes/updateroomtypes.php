@@ -15,31 +15,43 @@
         // keep track validation errors
         $RoomtypeNameError = null;
         $BedsError = null;
+        $PriceError = null;
+        $ImageIDError = null;
          
         // keep track post values
         $RoomtypeName = $_POST['RoomtypeName'];
         $Beds = $_POST['Beds'];
-         
-        $RoomtypeName = $_POST['RoomtypeName'];
-        $Beds = $_POST['Beds'];
         $Price = $_POST['Price'];
+        $ImageID = $_POST['ImageID'];
 
 
         // validate input
         $valid = true;
        
-        if (empty($RoomtypeName)) {
-            $RoomtypeNameError = 'Please enter RoomtypeName';
+          if (empty($RoomtypeName)) {
+            $RoomtypeNameError = 'Venligts fyll inn romtypenavn';
             $valid = false;
-        }
-         
-           if (empty($Beds)) {
-            $BedsError = 'Please enter Beds';
+        }else if (!ctype_alpha($RoomtypeName)) {
+            $RoomtypeNameError = 'Ugyldig romtypenavn';
             $valid = false;
         }
 
-          if (empty($Price)) {
-            $PriceError = 'Please enter Price';
+
+        if (empty($Beds)) {
+            $BedsError = 'Venligts fyll inn antall Senger';
+            $valid = false;
+        }else if (ctype_alpha($Beds)) {
+            $BedsError = 'Ugyldig antall senger ';
+            $valid = false;
+        }
+
+        if (empty($Price)||!ctype_digit($Price)) {
+            $PriceError = 'Venligts fyll inn pris';
+            $valid = false;
+        } 
+
+        if (empty($ImageID)) {
+            $ImageIDError = 'Venligst velg ImageID';
             $valid = false;
         }
          
@@ -47,9 +59,9 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE roomtypes set RoomtypeName = ?, Beds = ?, Price = ? WHERE RoomtypeID = ?";
+            $sql = "UPDATE roomtypes set RoomtypeName = ?, Beds = ?, ImageID = ?, Price = ? WHERE RoomtypeID = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($RoomtypeName,$Beds,$Price,$RoomtypeID));
+            $q->execute(array($RoomtypeName,$Beds,$ImageID,$Price,$RoomtypeID));
             Database::disconnect();
             header("Location: RoomtypesList.php");
         }
@@ -62,6 +74,7 @@
         $data = $q->fetch(PDO::FETCH_ASSOC);
         $RoomtypeName = $data['RoomtypeName'];
         $Beds = $data['Beds'];
+        $ImageID = $data['ImageID'];
         $Price = $data['Price'];
         Database::disconnect();
     }
@@ -112,6 +125,16 @@
                             <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
                             <?php if (!empty($PriceError)): ?>
                                 <span class="help-inline"><?php echo $PriceError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                        <label class="control-label">ImageID</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
+                            <?php if (!empty($ImageIDError)): ?>
+                                <span class="help-inline"><?php echo $ImageIDError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

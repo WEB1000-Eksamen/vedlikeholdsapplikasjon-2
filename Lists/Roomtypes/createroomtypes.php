@@ -5,33 +5,46 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $RoomtypenNameError = null;
+        $RoomtypeNameError = null;
         $BedsError = null;
         $PriceError = null;
+        $ImageIDError = null;
         
          
         // keep track post values
         $RoomtypeName = $_POST['RoomtypeName'];
         $Beds = $_POST['Beds'];
-
         $Price = $_POST['Price'];
-        
+        $ImageID = $_POST['ImageID'];
+      
          
         // validate input
         $valid = true;
+       
         if (empty($RoomtypeName)) {
-            $nameError = 'Venligts fyll inn navn';
+            $RoomtypeNameError = 'Venligts fyll inn romtypenavn';
+            $valid = false;
+        }else if (!ctype_alpha($RoomtypeName)) {
+            $RoomtypeNameError = 'Ugyldig romtypenavn';
             $valid = false;
         }
+
 
         if (empty($Beds)) {
             $BedsError = 'Venligts fyll inn antall Senger';
             $valid = false;
+        }else if (ctype_alpha($Beds)) {
+            $BedsError = 'Ugyldig antall senger ';
+            $valid = false;
         }
 
-
-        if (empty($Price)) {
+        if (empty($Price)||!ctype_digit($Price)) {
             $PriceError = 'Venligts fyll inn pris';
+            $valid = false;
+        } 
+
+        if (empty($ImageID)) {
+            $ImageIDError = 'Venligst velg ImageID';
             $valid = false;
         }
               
@@ -39,9 +52,9 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO roomtypes (RoomtypeName,Beds,Price) values(?, ?, ?)";
+            $sql = "INSERT INTO roomtypes (RoomtypeName,Beds, ImageID, Price) values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($RoomtypeName,$Beds,$Price));
+            $q->execute(array($RoomtypeName,$Beds,$ImageID,$Price));
             Database::disconnect();
             header("Location: RoomtypesList.php");
         }
@@ -65,12 +78,12 @@
              
                     <form class="form" action="createroomtypes.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
                         <label class="control-label">Romtypenavn</label>
                         <div class="controls">
                             <input name="RoomtypeName" type="text"  placeholder="F.eks Suite" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
-                            <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                            <?php if (!empty($RoomtypeNameError)): ?>
+                                <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -80,8 +93,8 @@
                         <label class="control-label">Antall senger</label>
                         <div class="controls">
                             <input name="Beds" type="text"  placeholder="F.eks 4" value="<?php echo !empty($Beds)?$Beds:'';?>">
-                            <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $BedsError;?></span>
+                            <?php if (!empty($BedsError)): ?>
+                                <span class="show text-danger"><?php echo $BedsError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
@@ -92,7 +105,17 @@
                         <div class="controls">
                             <input name="Price" type="text"  placeholder="F.eks 200" value="<?php echo !empty($Price)?$Price:'';?>">
                             <?php if (!empty($PriceError)): ?>
-                                <span class="help-inline"><?php echo $PriceError;?></span>
+                                <span class="show text-danger"><?php echo $PriceError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                        <label class="control-label">ImageID</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
+                            <?php if (!empty($ImageIDError)): ?>
+                                <span class="help-inline"><?php echo $ImageIDError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
