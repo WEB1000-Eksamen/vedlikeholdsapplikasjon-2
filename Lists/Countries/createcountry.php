@@ -5,8 +5,8 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $nameError = null;
-        $emailError = null;
+        $CountryNameError = null;
+      
         
          
         // keep track post values
@@ -15,21 +15,38 @@
          
         // validate input
         $valid = true;
+   
+
         if (empty($CountryName)) {
-            $nameError = 'Please enter CountryName';
+            $CountryNameError = 'Vennligts fyll inn landets navn.';
+            $valid = false;
+        }else if (!ctype_alpha($CountryName)) {
+            $CountryNameError = 'Ugyldig land. (Bruk bokstaver)';
             $valid = false;
         }
+
+          $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM countries where CountryName = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($CountryName));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        if( $q->rowCount() > 0 ) { 
+          $CountryNameError = 'Landet er allerede registrert';
+          $valid = false;
+               }
+        Database::disconnect();
          
                       
         // insert data
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO orders (CountryName) values(?, ?)";
+            $sql = "INSERT INTO countries (CountryName) values(?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($CountryName));
             Database::disconnect();
-            header("Location: OrdersList.php");
+            header("Location: countrylist.php");
         }
     }
 ?>
@@ -46,25 +63,25 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Registrer en bestilling</h3>
+                        <h3>Registrer ett land</h3>
                     </div>
              
-                    <form class="form" action="createorder.php" method="post">
+                    <form class="form" action="createcountry.php" method="post">
                       
-                      <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-                        <label class="control-label">CountryName</label>
+                      <div class="control-group <?php echo !empty($CountryNameError)?'error':'';?>">
+                        <label class="control-label">Land</label>
                         <div class="controls">
-                            <input name="CountryName" type="text"  placeholder="CountryName" value="<?php echo !empty($CountryName)?$CountryName:'';?>">
-                            <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                            <input name="CountryName" type="text"  placeholder="F.eks Norge" value="<?php echo !empty($CountryName)?$CountryName:'';?>">
+                            <?php if (!empty($CountryNameError)): ?>
+                                <span class="show text-danger"><?php echo $CountryNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
                      
                      <div class="form-actions">
-                          <button type="submit" class="btn btn-success">Create</button>
-                          <a class="btn" href="OrdersList.php">Back</a>
+                          <button type="submit" class="btn btn-success">Registrer</button>
+                          <a class="btn" href="countrylist.php">Tilbake</a>
                         </div>
                     </form>
                 </div>
