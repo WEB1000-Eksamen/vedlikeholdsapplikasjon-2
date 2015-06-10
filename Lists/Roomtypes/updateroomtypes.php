@@ -1,6 +1,6 @@
 <?php
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
     $RoomtypeID = null;
     if ( !empty($_GET['RoomtypeID'])) {
@@ -17,6 +17,7 @@
         $BedsError = null;
         $PriceError = null;
         $ImageIDError = null;
+        $Succsess = null;
          
         // keep track post values
         $RoomtypeName = $_POST['RoomtypeName'];
@@ -32,7 +33,7 @@
             $RoomtypeNameError = 'Venligts fyll inn romtypenavn';
             $valid = false;
         }else if (!ctype_alpha($RoomtypeName)) {
-            $RoomtypeNameError = 'Ugyldig romtypenavn';
+            $RoomtypeNameError = 'Ugyldig romtypenavn (bruk bokstaver)';
             $valid = false;
         }
 
@@ -46,7 +47,7 @@
         }
 
         if (empty($Price)||!ctype_digit($Price)) {
-            $PriceError = 'Venligts fyll inn pris';
+            $PriceError = 'Vennligts fyll inn pris (Bruk tall)';
             $valid = false;
         } 
 
@@ -54,6 +55,23 @@
             $ImageIDError = 'Venligst velg ImageID';
             $valid = false;
         }
+
+        if (strlen($Beds)>1) {
+           $BedsError = 'Bruk tall med maks 1 (ett) siffer';
+           $valid = false;
+        }
+
+        if (strlen ($RoomtypeName) < 4 || strlen ($RoomtypeName) > 10) {
+           $RoomtypeNameError = 'Minst 4 (fire) og maks 10 (ti) bokstaver';
+           $valid = false;
+        } 
+
+          if (strlen ($Price) < 2 || strlen ($Price) > 4) {
+           $PriceError = 'Bruk tall med minst 3 (tre) og maks 5 (fem) siffer';
+           $valid = false;
+        } 
+
+
 
          $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -72,13 +90,14 @@
          
         // update data
         if ($valid) {
+            $Succsess = 'Romtypen ble oppdatert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "UPDATE roomtypes set RoomtypeName = ?, Beds = ?, ImageID = ?, Price = ? WHERE RoomtypeID = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($RoomtypeName,$Beds,$ImageID,$Price,$RoomtypeID));
             Database::disconnect();
-            header("Location: RoomtypesList.php");
+            //header("Location: RoomtypesList.php");
         }
     } else {
         $pdo = Database::connect();
@@ -98,13 +117,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
+  <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -151,12 +180,15 @@
                             <?php if (!empty($ImageIDError)): ?>
                                 <span class="show text-danger"><?php echo $ImageIDError;?></span>
                             <?php endif; ?>
+                            <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
+                            <?php endif; ?>
                         </div>
                       </div>
 
 
 
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
                           <a class="btn" href="RoomtypesList.php">Tilbake</a>
                         </div>
@@ -164,9 +196,14 @@
                 </div>
                  
     </div> <!-- /container -->
+     <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/custom.js"></script>
   </body>
-<?php
-    require_once("../../footer.html");
-?> 
+
 
 </html>

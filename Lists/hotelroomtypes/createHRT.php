@@ -1,7 +1,7 @@
 <?php
      
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
     if ( !empty($_POST)) {
         // keep track validation errors
@@ -74,16 +74,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
     <div class="containers">
      
                 <div class="container1">
-                    <div class="row">
+                    <div class="ro">
                         <h3>Registrer ett nytt Hotelrom</h3>
                     </div>
              
@@ -120,7 +131,7 @@
                         </div>
                       </div>
 
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Registrer</button>
                           <a class="btn" href="HRTList.php">Tilbake</a>
                         </div>
@@ -128,8 +139,13 @@
                 </div>
                  
     </div> <!-- /container -->
+     <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/custom.js"></script>
   </body>
-  <?php
-    require_once("../../footer.html");
-?> 
+
 </html>

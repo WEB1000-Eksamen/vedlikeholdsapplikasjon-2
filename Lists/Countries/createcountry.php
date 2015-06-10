@@ -1,11 +1,12 @@
 <?php
      
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
     if ( !empty($_POST)) {
         // keep track validation errors
         $CountryNameError = null;
+        $Succsess = null;
       
         
          
@@ -25,6 +26,11 @@
             $valid = false;
         }
 
+        if (strlen ($CountryName) < 3 || strlen ($CountryName) > 20) {
+           $CountryNameError = 'Minst 3 (tre) og maks 20 (tyve) bokstaver';
+           $valid = false;
+        }
+
           $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT * FROM countries where CountryName = ?";
@@ -40,25 +46,38 @@
                       
         // insert data
         if ($valid) {
+            $Succsess = 'Landet ble registrert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "INSERT INTO countries (CountryName) values(?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($CountryName));
             Database::disconnect();
-            header("Location: countrylist.php");
+            //header("Location: countrylist.php");
         }
     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
+  
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
+    <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -75,11 +94,14 @@
                             <?php if (!empty($CountryNameError)): ?>
                                 <span class="show text-danger"><?php echo $CountryNameError;?></span>
                             <?php endif; ?>
+                            <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
+                            <?php endif; ?>
                         </div>
                       </div>
 
                      
-                     <div class="form-actions">
+                     <div class="form-action">
                           <button type="submit" class="btn btn-success">Registrer</button>
                           <a class="btn" href="countrylist.php">Tilbake</a>
                         </div>
@@ -87,8 +109,13 @@
                 </div>
                  
     </div> <!-- /container -->
+    <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/custom.js"></script>
   </body>
-  <?php
-    require_once("../../footer.html");
-?> 
+
 </html>

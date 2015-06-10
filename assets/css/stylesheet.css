@@ -79,7 +79,7 @@ a:hover, a:active, a:focus {
 div.user_admin_bar {
 	text-align: center;
 	margin: 70px 0 0 0;
-	background-color: rgb(234, 237, 255);
+	background-color: #780000;
 }
 div.user_admin_bar ul {
 	margin: 0;
@@ -103,10 +103,10 @@ footer {
 	width: 100%;
 	clear: left;
 	padding-top: 2px;
-	padding-bottom: 2px;
+	padding-bottom: 20px;
 	
-	background-color: #EAEDFF;
-	color: #DCD8FB;
+	background-color:#780000;
+	
 	font-style: italic;
 	font-size: small;
 }

@@ -1,42 +1,66 @@
 <?php
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
 ?> 
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+   
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="../../AdminMenu/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
+    
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
+    <div class="background-image"></div>
     <div class="container">
             <div class="row">
-                <h3>Bestillingsregister</h3>
+                <h3>Bestillinger</h3>
             </div>
-            <div class="row">
-            	<p>
+            
+         <p>
                     <a href="createorder.php" class="btn btn-success">Registrer</a>
                 </p>
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-					  <th>ID</th>
-                      <th>Referanse</th>
-                      <th>E-post</th>
-                      <th>Valg</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
+        <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             Databasetabell
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Referanse</th>
+                                            <th>E-post</th>
+                                             <th>Valg</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?php
                    include '../database.php';
                    $pdo = Database::connect();
                    $sql = 'SELECT * FROM orders ORDER BY OrderID DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
-							
-							echo '<td>'. $row['OrderID'] . '</td>';
+              
+                            echo '<td>'. $row['OrderID'] . '</td>';
+                           
                             echo '<td>'. $row['Reference'] . '</td>';
                             echo '<td>'. $row['Email'] . '</td>';
                             echo '<td width=250>';
@@ -49,33 +73,31 @@
                    }
                    Database::disconnect();
                   ?>
-                  </tbody>
-            </table>
-        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
     </div> <!-- /container -->
-<?php
-	@$endreStudentKnapp=$_POST ["endreStudentKnapp"];
-    if ($endreStudentKnapp)
-        {
-            $brukernavn=$_POST ["brukernavn"];
-            $fornavn=$_POST ["fornavn"];
-            $etternavn=$_POST ["etternavn"];
-            $klassekode=$_POST ["klassekode"];
-            $bildenr=$_POST ["bildenr"];
-            if (!$brukernavn || !$fornavn || !$etternavn || !$klassekode)
-                {
-                    print ("Alle felt må fylles ut"); 
-                }
-            else
-                {
-                    $sqlSetning="UPDATE student SET fornavn='$fornavn', etternavn='$etternavn', klassekode='$klassekode', bildenr='$bildenr' WHERE brukernavn='$brukernavn';";
-                    mysqli_query($db,$sqlSetning) or die ("ikke mulig å endre data i databasen");
-                    print ("Studenten med brukernavn $brukernavn er nå endret<br />");
-                }
-        }
-?>
+      
+ <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="../../AdminMenu/assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+    </script>
+         <!-- CUSTOM SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/custom.js"></script>
   </body>
-  <?php
-    require_once("../../footer.html");
-?> 
 </html>

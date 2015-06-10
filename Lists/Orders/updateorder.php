@@ -1,6 +1,6 @@
 <?php
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
     $OrderID = null;
     if ( !empty($_GET['OrderID'])) {
@@ -15,6 +15,7 @@
         // keep track validation errors
         $ReferenceError = null;
         $EmailError = null;
+        $Succsess = null;
          
         // keep track post values
         $Reference = $_POST['Reference'];
@@ -39,6 +40,11 @@
             $valid = false;
         }
 
+        if (strlen ($Reference) < 4 || strlen ($Reference) > 15) {
+           $ReferenceError = 'Minst 4 (fire) og maks 15 (femten) bokstaver/tall';
+           $valid = false;
+        } 
+
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT * FROM orders where Reference = ?";
@@ -55,13 +61,14 @@
          
         // update data
         if ($valid) {
+            $Succsess = 'Bestillingen ble oppdatert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "UPDATE orders set Reference = ?, Email = ? WHERE OrderID = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($Reference,$Email,$OrderID));
             Database::disconnect();
-            header("Location: OrdersList.php");
+            //header("Location: OrdersList.php");
         }
     } else {
         $pdo = Database::connect();
@@ -79,13 +86,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
+    <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -112,9 +129,12 @@
                             <?php if (!empty($EmailError)): ?>
                                 <span class="show text-danger"><?php echo $EmailError;?></span>
                             <?php endif;?>
+                            <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
+                            <?php endif; ?>
                         </div>
                       </div>
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
                           <a class="btn" href="OrdersList.php">Tilbake</a>
                         </div>
@@ -122,9 +142,13 @@
                 </div>
                  
     </div> <!-- /container -->
+      <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="../../AdminMenu/assets/js/custom.js"></script>
   </body>
-<?php
-    require_once("../../footer.html");
-?> 
 
 </html>
