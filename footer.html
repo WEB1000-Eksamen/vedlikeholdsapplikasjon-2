@@ -1,26 +1,32 @@
-﻿</div>
-<footer>
-
+﻿<footer>
 <table width="100%">
-
-<tr>
-
-     <div align="center">
-	<a href="/vedlikeholdsapplikasjon-2/Index.php">Eksamen Gruppe 11 </a>
-		</div>
-<td align="center"> 
-	<form action="search.php" method="post" id="SearchKnapp" name="SearchKnapp">
-       
-</form>
-</td>
-</tr>
 </table>
-</footer>
-</div>
 
 <!-- Javascript -->
-<script src="js/hendelser.js"></script>
-<script src="js/input_validator.js"></script>
+ <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function() {
+    $('#dataTables-example').dataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Norwegian.json"
+        }
+    } );
+} );
+    </script>
+         <!-- CUSTOM SCRIPTS -->
+    <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/custom.js"></script>
+
+
+
 
 </body>
 </html>

@@ -1,24 +1,34 @@
 <?php
     require_once '../User.php';
-    session_start();
-    if (!isset($_SESSION['user']) || isset($_SESSION['user']) && $_SESSION['user'] == false) {
-        header("Location: ../../../login.php");
-    }
+    require_once("../../../../AdminMenu/Blank.html");
+    
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-     <title>Brukeradministrasjon - Obligatorisk Oppgave 4</title>
-    <link rel="stylesheet" type="text/css" href="../../../../assets/css/stylesheet.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfect Hotels Premium</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="/vedlikeholdsapplikasjon-2/AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="/vedlikeholdsapplikasjon-2/AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="/vedlikeholdsapplikasjon-2/AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link href="/vedlikeholdsapplikasjon-2/Lists/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="../../../../assets/css/stylesheet.css">
+  
+    <script src="/vedlikeholdsapplikasjon-2/Lists/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="background-image"></div>
     <section id="administer_users">
         <header>
-            <h1 class="">Brukeradministrasjon</h1>
+            <h2 class="">Brukeradministrasjon</h2>
         </header>
-        <a href="../../../../index.php" class="float-right back">Gå til forsiden</a>
+       
         <h2>Brukerliste</h2>
         <table>
             <thead>
@@ -69,13 +79,13 @@
         ?>
         <form action="../register.php" method="POST">
             <div>
-                <input placeholder="Brukernavn" required type="text" id="username" name="username" class="type">
+                <input placeholder="Brukernavn" required type="text" id="username" name="username" class="form-control">
             </div>
             <div>
-                <input placeholder="Passord" required type="password" id="password" name="password" class="type">
+                <input placeholder="Passord" required type="password" id="password" name="password" class="form-control">
             </div>
             <div>
-                <input placeholder="Bekreft passord" required type="password" id="password_confirm" name="password_confirm" class="type">
+                <input placeholder="Bekreft passord" required type="password" id="password_confirm" name="password_confirm" class="form-control">
             </div>
             <div>
                 <input type="hidden" name="req" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -109,7 +119,7 @@
         ?>
         <form action="../change.php" method="POST">
             <div>
-                <select class="change-password-select" name="username">
+                <select class="form-control" name="username">
                     <?php
                     foreach ($allUsers as $key => $value) {
                         echo "<option value='{$value['Username']}'>{$value['Username']}</option>";
@@ -118,10 +128,10 @@
                 </select>
             </div>
             <div>
-                <input required placeholder="Nytt passord" type="password" name="password" class="type">
+                <input required placeholder="Nytt passord" type="password" name="password" class="form-control">
             </div>
             <div>
-                <input required placeholder="Bekreft nytt passord" type="password" name="password_confirm" class="type">
+                <input required placeholder="Bekreft nytt passord" type="password" name="password_confirm" class="form-control">
             </div>
             <div>
                 <input type="hidden" name="req" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -130,4 +140,7 @@
         </form>
     </section>
 </body>
+<?php
+    require_once("../../../../footer.html");
+?> 
 </html>

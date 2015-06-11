@@ -1,178 +1,5 @@
 @charset "utf-8";
-body {
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	color: #151515;
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	background-color: #fff;
-}
-/* Main container */
-#wrapper {
-	position: relative;
-	background-color: #596b7a;
-	width: 100%;
-	margin-right: auto;
-	margin-left: auto;
-}
 
-
-
-#nullstill{
-margin-top: 30px;
-}
-
-#IndexTekst {
-text-align: center;
-color: #fff;
-}
-
-#reglinks {
-float:left;
-}
-
-#reglinks2 {
-float:right;
-}
-
-#FooterTekst {
-text-align: center;
-}
-
-
-
-
-
-/* Links */
-a {
-	font-weight: bold;
-	text-decoration: none;
-	margin-top: 0px;
-	margin-bottom: 0px;
-	padding-top: 1px;
-}
-a:link, a:visited {
-	color: #000;
-}
-a:hover, a:active, a:focus {
-	color: #000;
-	text-decoration: underline;
-}
-/* Navigation */
-#mainnav a {
-	width: 25%;
-	display: block;
-	float: left;
-	text-align: center;
-	background-color: #EAEDFF;
-	padding-top: 6px;
-	padding-bottom: 6px;
-}
-#mainnav a:hover, #mainnav a:active, #mainnav a:focus {
-	text-decoration: none;
-	background-color: #d2d5e5;
-}
-
-/* User admin bar */
-
-div.user_admin_bar {
-	text-align: center;
-	margin: 70px 0 0 0;
-	background-color: #780000;
-}
-div.user_admin_bar ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-div.user_admin_bar ul li {
-	display: inline-block;
-	padding: 10px;
-}
-div.user_admin_bar ul li:hover {
-	background-color: #D9DDF5;
-}
-div.user_admin_bar ul li a {
-	color: #000;
-}
-/* End user admin bar */
-
-footer {
-	position: relative;
-	width: 100%;
-	clear: left;
-	padding-top: 2px;
-	padding-bottom: 20px;
-	
-	background-color:#780000;
-	
-	font-style: italic;
-	font-size: small;
-}
-td {
-
-	padding-left: 3px;
-	padding-right: 3px;
-
-}
-div#body {
-	padding: 10px 50px 20px 50px;
-}
-
-form#SearchKnapp {
-	margin-top: 16px;
-	margin-bottom: 16px;
-}
-
-/*THUMBNAIL HOVERPOPUPS*/
-.thumbnail{
-position: relative;
-z-index: 0;
-}
-
-.thumbnail:hover{
-background-color: transparent;
-z-index: 50;
-}
-
-.thumbnail span{ /*CSS for enlarged image*/
-position: absolute;
-background-color: lightyellow;
-padding: 5px;
-left: -1000px;
-border: 1px dashed gray;
-visibility: hidden;
-color: black;
-text-decoration: none;
-}
-
-.thumbnail span img{ /*CSS for enlarged image*/
-border-width: 0;
-padding: 2px;
-}
-
-.thumbnail:hover span{ /*CSS for enlarged image on hover*/
-visibility: visible;
-top: 0;
-left: 60px; /*position where enlarged image should offset horizontally */
-
-}
-#melding {
-	height: 19px;
-	min-height: 19px;
-	max-height: 19px;
-}
-
-.float-left {
-	float: left;
-}
-.float-right {
-	float: right;
-}
-.clear {
-	clear: both;
-}
 
 /* login og midlertidig registrering */
 
@@ -180,13 +7,12 @@ section#user_box {
 	width: 40%;
 	margin: 100px auto 0 auto;
 	background-color: #122c41;
-	box-shadow: 0 0 4px #CFCFCF;
 }
 section#user_box header {
 	width: 100%;
 }
-section#user_box h1 {
-	color: #black;
+section#user_box h2 {
+	color: #white;
 	text-align: center;
 	padding: 20px 0 20px 20px;
 	margin: 0 0 10px 0;
@@ -273,13 +99,12 @@ section#administer_users {
 	width: 60%;
 	margin: 0 auto;
 	background-color: #fff;
-	box-shadow: 0 0 4px #CFCFCF;
 }
 section#administer_users header {
 	color: #FFF;
 	padding: 20px 0 20px 20px;
 	margin: 0 0 10px 0;
-	background-color: #009EFF;
+	background-color: #A70303;
 }
 section#administer_users a {
 	margin-right: 20px;
@@ -295,6 +120,7 @@ section#administer_users h1 {
 }
 section#administer_users h2 {
 	padding: 0 20px;
+	text-align: center;
 }
 section#administer_users table {
 	width: 90%;
@@ -346,7 +172,7 @@ section#administer_users div.success_message {
 section#administer_users input.submit {
 	font-size: 20px;
 	outline: none;
-	background-color: #009EFF;
+	background-color: #A70303;
 	border: none;
 	width: 100%;
 	padding: 20px 0;
@@ -359,10 +185,10 @@ section#administer_users input.submit {
     box-sizing: border-box;
 }
 section#administer_users input.submit:hover {
-	background-color: #0091EA;
+	background-color: red;
 }
 section#administer_users input.submit:active {
-	background-color: #007ECB;
+	background-color: red;
 }
 section#administer_users div {
 	padding: 10px 20px;
@@ -387,6 +213,7 @@ section#user_admin_bar div{
 .form-control {
 	padding: 20px 15px;
 	font-size: 16px;
+	height: 50px;
 }
 div > .btn {
 	margin-top: 10px;

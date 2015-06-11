@@ -90,3 +90,20 @@ tr:nth-child(odd) {background: #FFF}
   z-index: -1;
   padding: 0 10px;
 }
+
+#file{
+	width: 250px;
+	margin:0 auto;
+	height: auto;
+	background-color: rgba(255, 255, 255, 0.35);
+    color: white;
+
+}
+
+#fargebildepad{
+	width: 260px;
+	margin:0 auto;
+	height: auto;
+	background-color: rgb(77, 77, 77);
+	padding:10px;
+}

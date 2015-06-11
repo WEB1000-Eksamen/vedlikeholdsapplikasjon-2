@@ -12,6 +12,7 @@
         $RoomtypeID = $_POST['RoomtypeID'];
          
         // delete data
+        try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "DELETE FROM Roomtypes  WHERE RoomtypeID = ?";
@@ -19,7 +20,9 @@
         $q->execute(array($RoomtypeID));
         Database::disconnect();
         header("Location: RoomtypesList.php");
-         
+        } catch (Exception $e) {
+ echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objektet.</font></p>";
+}     
     }
 ?>
  
@@ -28,7 +31,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Perfect Hotels Premium</title>
   <!-- BOOTSTRAP STYLES-->
     <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -61,12 +64,8 @@
                 </div>
                  
     </div> <!-- /container -->
-    <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/custom.js"></script>
+   <?php
+    require_once("../../footer.html");
+?> 
   </body>
 </html>

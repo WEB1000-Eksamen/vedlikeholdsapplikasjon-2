@@ -1,25 +1,28 @@
 <?php
     require '../database.php';
     require_once("../../AdminMenu/Blank.html");
-    $OrderID = 0;
+    $CountryID = 0;
      
-    if ( !empty($_GET['OrderID'])) {
-        $OrderID = $_REQUEST['OrderID'];
+    if ( !empty($_GET['CountryID'])) {
+        $CountryID = $_REQUEST['CountryID'];
     }
      
     if ( !empty($_POST)) {
         // keep track post values
-        $OrderID = $_POST['OrderID'];
+        $CountryID = $_POST['CountryID'];
          
         // delete data
+        try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM orders  WHERE OrderID = ?";
+        $sql = "DELETE FROM countries  WHERE CountryID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($OrderID));
+        $q->execute(array($CountryID));
         Database::disconnect();
         header("Location: countryList.php");
-         
+        } catch (Exception $e) {
+ echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objektet.</font></p>";
+}     
     }
 ?>
  
@@ -28,7 +31,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Perfect Hotels Premium</title>
   <!-- BOOTSTRAP STYLES-->
     <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -52,7 +55,7 @@
                     </div>
                      
                     <form class="form" action="deletecountry.php" method="post">
-                      <input type="hidden" name="OrderID" value="<?php echo $OrderID;?>"/>
+                      <input type="hidden" name="CountryID" value="<?php echo $CountryID;?>"/>
                       <p class="alert alert-error"> Er du sikker?</p>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-danger">Ja</button>
@@ -62,12 +65,8 @@
                 </div>
                  
     </div> <!-- /container -->
-     <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/custom.js"></script>
+     <?php
+    require_once("../../footer.html");
+?> 
   </body>
 </html>
