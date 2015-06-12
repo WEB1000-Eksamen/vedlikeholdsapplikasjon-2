@@ -24,6 +24,24 @@
     </script>
          <!-- CUSTOM SCRIPTS -->
     <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/custom.js"></script>
+<script>
+     $('.navbar-hamburger').bind('click', function () {
+        navbar.toggleClass('active');
+        
+        // hvis navbaren har active,
+        // gjem hamburgeren
+        // vis krysset
+        if (navbar.hasClass('active')) {
+            iconOpen.hide();
+            iconClose.fadeIn();
+            return;
+        }
+        // ellers skal det
+        // motsatte skje
+        iconClose.hide();
+        iconOpen.fadeIn();
+    });
+     </script>
 
 
 

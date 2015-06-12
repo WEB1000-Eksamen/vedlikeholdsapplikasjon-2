@@ -107,3 +107,9 @@ tr:nth-child(odd) {background: #FFF}
 	background-color: rgb(77, 77, 77);
 	padding:10px;
 }
+
+
+.fa-bars{
+	font-size: 26px;
+	color: #fff;
+}
