@@ -41,7 +41,7 @@
 
          $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT hotelroomtypes.HRID,hotels.HotelName,roomtypes.RoomtypeName,rooms.RoomNumberFROM hotelroomtypes INNER JOIN hotels ON (hotels.HotelID = hotelroomtypes.HotelID)INNER JOIN roomtypes ON (roomtypes.RoomtypeID = hotelroomtypes.RoomtypeID)INNER JOIN rooms ON (rooms.RoomID = hotelroomtypes.RoomID) where hotels.HotelName = ? AND roomtypes.RoomtypeName = ? AND rooms.RoomNumber = ?";
+        $sql = "SELECT * FROM hotelroomtypes where HotelID = ? AND RoomtypeID = ? AND RoomID = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($HotelName,$RoomtypeName,$RoomNumber));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -90,7 +90,7 @@
      
                 <div class="container1">
                     <div class="ro">
-                        <h3>Registrer ett nytt Hotelrom</h3>
+                        <h3>Registrer ett nytt hotelrom</h3>
                     </div>
              
                     <form class="form" action="createHRT.php" method="post">
@@ -134,13 +134,6 @@
                 </div>
                  
     </div> <!-- /container -->
-     <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/custom.js"></script>
-  </body>
-
-</html>
+     <?php
+    require_once("../../footer.html");
+?>

@@ -11,8 +11,6 @@
     <link href="AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
     <link href="AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
-     <!-- MORRIS CHART STYLES-->
-   
         <!-- CUSTOM STYLES-->
     <link href="AdminMenu/assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
@@ -21,46 +19,28 @@
     <link href="AdminMenu/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
    <link   href="Lists/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
   <div class="background-image"></div>
-    <div class="content">
+    
     <div class="container">
              <h3>Velkommen!</h3>
-       
-        <!-- Advanced Tables -->
-                    <div class="panel panel-default">
-
-                         <div class="row">
-               
-            </div>
-                        <div class="panel-heading">
-                       
-                        </div>
+                    <div class="panel panel-default">              
                         <div class="panel-body">
                             <div class="table-responsive">
-                                
                                     <thead>
                                         <tr>
-                                          
-                                            <th>
-<p>Velkommen til vedlikeholdsapplikasjonen for perfect Hotels Premium.</p>
-Her har du som administrator muligheten for å redigere, legge til eller slette innhold i vår database.<br></th>
-                                            
                                            
+<p>Velkommen til vedlikeholdsapplikasjonen for perfect Hotels Premium.
+Her har du som administrator muligheten for å redigere, legge til eller slette innhold i vår database.</p>  
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                       
-                                    </tbody>
                                 </table>
                             </div>
-                            
                         </div>
                     </div>
                     <!--End Advanced Tables -->
     </div> <!-- /container -->
-     </div>
+     
      <?php
     require_once("footer.html");
 ?> 

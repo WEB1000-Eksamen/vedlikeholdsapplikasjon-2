@@ -1,29 +1,28 @@
 <?php
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
-    $RoomtypeID = null;
-    if ( !empty($_GET['RoomtypeID'])) {
-        $RoomtypeID = $_REQUEST['RoomtypeID'];
+    $HRID = null;
+    if ( !empty($_GET['HRID'])) {
+        $HRID = $_REQUEST['HRID'];
     }
      
-    if ( null==$RoomtypeID ) {
-        header("Location: RoomtypesList.php");
+    if ( null==$HRID ) {
+        header("Location: HRTList.php");
     }
      
     if ( !empty($_POST)) {
         // keep track validation errors
         $RoomtypeNameError = null;
-        $BedsError = null;
-        $PriceError = null;
-        $ImageIDError = null;
+        $HotelNameError = null;
+        $RoomNumberError = null;
+        $Succsess = null;
+    
          
         // keep track post values
+        $HotelName = $_POST['HotelName'];
         $RoomtypeName = $_POST['RoomtypeName'];
-        $Beds = $_POST['Beds'];
-        $Price = $_POST['Price'];
-        $ImageID = $_POST['ImageID'];
-
+        $RoomNumber = $_POST['RoomNumber'];
 
         // validate input
         $valid = true;
@@ -31,66 +30,55 @@
           if (empty($RoomtypeName)) {
             $RoomtypeNameError = 'Venligts fyll inn romtypenavn';
             $valid = false;
-        }else if (!ctype_alpha($RoomtypeName)) {
-            $RoomtypeNameError = 'Ugyldig romtypenavn';
-            $valid = false;
         }
 
 
-        if (empty($Beds)) {
-            $BedsError = 'Venligts fyll inn antall Senger';
-            $valid = false;
-        }else if (ctype_alpha($Beds)) {
-            $BedsError = 'Ugyldig antall senger ';
+        if (empty($HotelName)) {
+            $HotelNameError = 'Venligts fyll inn antall Senger';
             $valid = false;
         }
 
-        if (empty($Price)||!ctype_digit($Price)) {
-            $PriceError = 'Venligts fyll inn pris';
+        if (empty($RoomNumber)||!ctype_digit($RoomNumber)) {
+            $RoomNumberError = 'Venligts fyll inn pris';
             $valid = false;
         } 
 
-        if (empty($ImageID)) {
-            $ImageIDError = 'Venligst velg ImageID';
-            $valid = false;
-        }
 
          $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM roomtypes where RoomtypeName = ? AND Beds = ? AND Price = ? AND ImageID = ?";
+        $sql = "SELECT * FROM hotelroomtypes where RoomtypeID = ? AND HotelID = ? AND RoomID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomtypeName,$Beds,$Price,$ImageID));
+        $q->execute(array($RoomtypeName,$HotelName,$RoomNumber));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         if( $q->rowCount() > 0 ) { 
-          $RoomtypeNameError = 'Romtypen er allerede registrert';
-          $BedsError = 'Romtypen er allerede registrert';
-          $PriceError = 'Romtypen er allerede registrert';
-          $ImageIDError = 'Romtypen er allerede registrert';
+          $RoomtypeNameError = 'Hotelromet er allerede registrert';
+          $HotelNameError = 'Hotelromet er allerede registrert';
+          $RoomNumberError = 'Hotelromet er allerede registrert';
           $valid = false;
                }
         Database::disconnect();
          
         // update data
         if ($valid) {
+            $Succsess = 'Hotelromet ble oppdatert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE roomtypes set RoomtypeName = ?, Beds = ?, ImageID = ?, Price = ? WHERE RoomtypeID = ?";
+            $sql = "UPDATE hotelroomtypes set RoomtypeID = ?, HotelID = ?, RoomID = ? WHERE HRID = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($RoomtypeName,$Beds,$ImageID,$Price,$RoomtypeID));
+            $q->execute(array($RoomtypeName,$HotelName,$RoomNumber,$HRID));
             Database::disconnect();
-            header("Location: RoomtypesList.php");
+            //header("Location: RoomtypesList.php");
         }
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM roomtypes where RoomtypeID = ?";
+        $sql = "SELECT * FROM hotelroomtypes where HRID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomtypeID));
+        $q->execute(array($HRID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-        $RoomtypeName = $data['RoomtypeName'];
-        $Beds = $data['Beds'];
-        $ImageID = $data['ImageID'];
-        $Price = $data['Price'];
+        $RoomtypeName = $data['RoomtypeID'];
+        $HotelName = $data['HotelID'];
+        $RoomNumber = $data['RoomID'];
         Database::disconnect();
     }
 ?>
@@ -98,75 +86,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfect Hotels Premium</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body >
+    <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Oppdater romtype</h3>
+                        <h3>Oppdater hotelrom</h3>
                     </div>
              
-                    <form class="form" action="updateroomtypes.php?RoomtypeID=<?php echo $RoomtypeID?>" method="post">
+                    <form class="form" action="updateHRT.php?HRID=<?php echo $HRID?>" method="post">
                       
+                      <div class="control-group <?php echo !empty($RoomNumberError)?'error':'';?>">
+                        <label class="control-label">Romnummer</label>
+                        <div class="controls">
+                             <?php require_once("../Listebokser/listeboks-Rooms.php"); ?> <?php if (!empty($RoomNumberError)): ?>
+                                <span class="show text-danger"><?php echo $RoomNumberError;?></span>
+                            <?php endif; ?>
+                            <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
+                        <label class="control-label">Hotel</label>
+                        <div class="controls">
+                            <?php require_once("../Listebokser/listeboks-HotelName.php"); ?>
+                            <?php if (!empty($HotelNameError)): ?>
+                                <span class="show text-danger"><?php echo $HotelNameError;?></span>
+                            <?php endif;?>
+                        </div>
+                      </div>
 
                       <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
-                        <label class="control-label">Navn</label>
+                        <label class="control-label">Romtype</label>
                         <div class="controls">
-                            <input name="RoomtypeName" type="text"  placeholder="RoomtypeName" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
+                            <?php require_once("../Listebokser/listeboks-RoomtypesName.php"); ?>
                             <?php if (!empty($RoomtypeNameError)): ?>
                                 <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
-                          <div class="control-group <?php echo !empty($BedsError)?'error':'';?>">
-                        <label class="control-label">Antall Senger</label>
-                        <div class="controls">
-                            <input name="Beds" type="text" placeholder="Beds Address" value="<?php echo !empty($Beds)?$Beds:'';?>">
-                            <?php if (!empty($BedsError)): ?>
-                                <span class="show text-danger"><?php echo $BedsError;?></span>
-                            <?php endif;?>
-                        </div>
-                      </div>
 
-                      <div class="control-group <?php echo !empty($PriceError)?'error':'';?>">
-                        <label class="control-label">Pris</label>
-                        <div class="controls">
-                            <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
-                            <?php if (!empty($PriceError)): ?>
-                                <span class="show text-danger"><?php echo $PriceError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
-                        <label class="control-label">ImageID</label>
-                        <div class="controls">
-                            <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-
-
-
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
-                          <a class="btn" href="RoomtypesList.php">Tilbake</a>
+                          <a class="btn" href="HRTList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>
                  
     </div> <!-- /container -->
-  </body>
+
 <?php
     require_once("../../footer.html");
 ?> 
 
-</html>
