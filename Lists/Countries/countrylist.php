@@ -1,6 +1,3 @@
-<?php
-    require_once("../../AdminMenu/Blank.html");
-?> 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,6 +22,11 @@
 </head>
  
 <body >
+    
+    <?php
+        require_once("../../AdminMenu/Blank.html");
+    ?> 
+    
     <div class="background-image"></div>
     <div class="container">
             <div class="row">
