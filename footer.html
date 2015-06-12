@@ -5,7 +5,7 @@
 <!-- Javascript -->
  <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/bootstrap.min.js"></script>
@@ -24,24 +24,13 @@
     </script>
          <!-- CUSTOM SCRIPTS -->
     <script src="/vedlikeholdsapplikasjon-2/AdminMenu/assets/js/custom.js"></script>
+
 <script>
-     $('.navbar-hamburger').bind('click', function () {
+     var navbar = $('.navbar-vedlikehold');
+     $('.navbar-hamburger').on('click', function () {
         navbar.toggleClass('active');
-        
-        // hvis navbaren har active,
-        // gjem hamburgeren
-        // vis krysset
-        if (navbar.hasClass('active')) {
-            iconOpen.hide();
-            iconClose.fadeIn();
-            return;
-        }
-        // ellers skal det
-        // motsatte skje
-        iconClose.hide();
-        iconOpen.fadeIn();
     });
-     </script>
+</script>
 
 
 

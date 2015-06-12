@@ -1,8 +1,8 @@
 <?php
 class Database
 {
-    private static $dbName = 'web-is-gr11w' ;
-    private static $dbHost = 'localhost' ;
+    private static $dbName = 'web-is-gr11w';
+    private static $dbHost = 'localhost';
     private static $dbUsername = 'root';
     private static $dbUserPassword = '';
      

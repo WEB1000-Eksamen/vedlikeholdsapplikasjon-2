@@ -20,7 +20,6 @@
      <!-- TABLE STYLES-->
     <link href="AdminMenu/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
    <link   href="Lists/css/bootstrap.min.css" rel="stylesheet">
-    <script src="Lists/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -40,14 +39,14 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                
                                     <thead>
                                         <tr>
-                                            <th>PHP</th>
+                                          
                                             <th>
 <p>Velkommen til vedlikeholdsapplikasjonen for perfect Hotels Premium.</p>
 Her har du som administrator muligheten for å redigere, legge til eller slette innhold i vår database.<br></th>
-                                            <th>PHP</th>
+                                            
                                            
                                         </tr>
                                     </thead>
@@ -62,5 +61,7 @@ Her har du som administrator muligheten for å redigere, legge til eller slette 
                     <!--End Advanced Tables -->
     </div> <!-- /container -->
      </div>
-  </body>
-</html>
+     <?php
+    require_once("footer.html");
+?> 
+  

@@ -113,3 +113,21 @@ tr:nth-child(odd) {background: #FFF}
 	font-size: 26px;
 	color: #fff;
 }
+
+.navbar-vedlikehold {
+    position: fixed;
+    left: -260px;
+}
+
+.navbar-vedlikehold.active {
+    left: 0;
+}
+
+.navbar-hamburger {
+    position: fixed;
+    left: 20px;
+    top: 80px;
+}
+.navbar-vedlikehold.active > .navbar-hamburger {
+    left: 280px;
+}
