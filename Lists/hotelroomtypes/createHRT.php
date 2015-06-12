@@ -24,17 +24,11 @@
         if (empty($HotelName)) {
             $HotelNameError = 'Venligts fyll inn romtypenavn';
             $valid = false;
-        }else if (!ctype_alpha($HotelName)) {
-            $HotelNameError = 'Ugyldig romtypenavn';
-            $valid = false;
         }
 
 
         if (empty($RoomtypeName)) {
             $RoomtypeNameError = 'Venligts fyll inn antall Senger';
-            $valid = false;
-        }else if (ctype_alpha($RoomtypeName)) {
-            $RoomtypeNameError = 'Ugyldig antall senger ';
             $valid = false;
         }
 
@@ -47,7 +41,7 @@
 
          $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT HRID, HotelName, RoomtypeName, RoomNumber FROM hotelroomtypes INNER JOIN hotels ON hotelroomtypes.HRID = hotels.HotelID INNER JOIN roomtypes ON hotelroomtypes.HRID = roomtypes.RoomtypeID INNER JOIN rooms ON hotelroomtypes.HRID = rooms.RoomID where HRID = ? AND HotelName = ? AND HotelName = ? AND RoomNumber = ?";
+        $sql = "SELECT hotelroomtypes.HRID,hotels.HotelName,roomtypes.RoomtypeName,rooms.RoomNumberFROM hotelroomtypes INNER JOIN hotels ON (hotels.HotelID = hotelroomtypes.HotelID)INNER JOIN roomtypes ON (roomtypes.RoomtypeID = hotelroomtypes.RoomtypeID)INNER JOIN rooms ON (rooms.RoomID = hotelroomtypes.RoomID) where hotels.HotelName = ? AND roomtypes.RoomtypeName = ? AND rooms.RoomNumber = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($HotelName,$RoomtypeName,$RoomNumber));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -63,7 +57,7 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO hotelroomtypes (HotelName,RoomtypeName,RoomNumber) values(?, ?, ?)";
+            $sql = "INSERT INTO hotelroomtypes (HotelID,RoomtypeID,RoomID) values(?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($HotelName,$RoomtypeName,$RoomNumber));
             Database::disconnect();
@@ -76,7 +70,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+   <title>Perfect Hotels Premium</title>
   <!-- BOOTSTRAP STYLES-->
     <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -91,6 +85,7 @@
 </head>
  
 <body >
+    <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -101,32 +96,32 @@
                     <form class="form" action="createHRT.php" method="post">
                     
 
-                        <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($RoomNumberError)?'error':'';?>">
                         <label class="control-label">Romnummer</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-Rooms.php"); ?>
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
+                            <?php if (!empty($RoomNumberError)): ?>
+                                <span class="show text-danger"><?php echo $RoomNumberError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
                         <label class="control-label">Romtype</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-RoomtypesName.php"); ?>
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
+                            <?php if (!empty($RoomtypeNameError)): ?>
+                                <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-                      <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
                         <label class="control-label">Hotel</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-HotelName.php"); ?>
-                            <?php if (!empty($ImageIDError)): ?>
-                                <span class="show text-danger"><?php echo $ImageIDError;?></span>
+                            <?php if (!empty($HotelNameError)): ?>
+                                <span class="show text-danger"><?php echo $HotelNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

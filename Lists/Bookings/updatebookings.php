@@ -1,6 +1,6 @@
 <?php
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
  
     $BookingID = null;
     if ( !empty($_GET['BookingID'])) {
@@ -78,24 +78,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
-    <script src="../js/bootstrap.min.js"></script>
-
-       <title>jQuery UI Datepicker - Default functionality</title>
+    <title>Perfect Hotels Premium</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
+    
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepickerTo" ).datepicker({dateFormat: 'yy-mm-dd'});
-     $( "#datepickerFrom" ).datepicker({dateFormat: 'yy-mm-dd'});
-  });
-  </script>
+  
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body>
+  <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -108,7 +107,7 @@
                     <div class="control-group <?php echo !empty( $datepickerError)?'error':'';?>">
                         <label class="control-label">Fra dato</label>
                         <div class="controls">
-                            <input name="FromDate" id="datepickerFrom" type="text"  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <input name="FromDate" id="txtFromDate" type="text"  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
                             <?php if (!empty( $datepickerError)): ?>
                                 <span class="help-inline"><?php echo  $datepickerError;?></span>
                             <?php endif; ?>
@@ -117,7 +116,7 @@
                           <div class="control-group <?php echo !empty( $datepickertoError)?'error':'';?>">
                         <label class="control-label">Til dato</label>
                         <div class="controls">
-                            <input name="ToDate" id="datepickerTo" type="text" placeholder="Til dato..." value="<?php echo !empty( $datepickerto)? $datepickerto:'';?>">
+                            <input name="ToDate" id="txtToDate" type="text" placeholder="Til dato..." value="<?php echo !empty( $datepickerto)? $datepickerto:'';?>">
                             <?php if (!empty( $datepickertoError)): ?>
                                 <span class="help-inline"><?php echo  $datepickertoError;?></span>
                             <?php endif;?>
@@ -147,7 +146,7 @@
 
 
 
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
                           <a class="btn" href="BookingsList.php">Tilbake</a>
                         </div>
@@ -155,9 +154,9 @@
                 </div>
                  
     </div> <!-- /container -->
-  </body>
-<?php
+    <?php
     require_once("../../footer.html");
 ?> 
+  </body> 
 
 </html>

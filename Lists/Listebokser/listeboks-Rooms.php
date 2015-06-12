@@ -7,9 +7,10 @@
     for ($r=1;$r<=$antallRader;$r++)
         {
             $rad=mysqli_fetch_array($sqlResultat); 
+            $RoomID=$rad["RoomID"]; 
             $RoomNumber=$rad["RoomNumber"]; 
           
-            print("<option value='$RoomNumber'>$RoomNumber </option>"); 
+            print("<option value='$RoomID'>$RoomNumber </option>"); 
         }
     print("</select>"); 
 ?>

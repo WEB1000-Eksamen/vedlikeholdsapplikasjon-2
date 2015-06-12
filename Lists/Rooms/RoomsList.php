@@ -6,7 +6,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Perfect Hotels Premium</title>
   <!-- BOOTSTRAP STYLES-->
     <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -20,11 +20,10 @@
      <!-- TABLE STYLES-->
     <link href="../../AdminMenu/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    
     <script src="../js/bootstrap.min.js"></script>
 </head>
 
-<body  >
+<body>
   <div class="background-image"></div>
     <div class="content">
     <div class="container">
@@ -81,23 +80,8 @@
                     <!--End Advanced Tables -->
     </div> <!-- /container -->
      </div>
-      
- <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="../../AdminMenu/assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
-         <!-- CUSTOM SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/custom.js"></script>
+     <?php
+    require_once("../../footer.html");
+?> 
   </body>
 </html>

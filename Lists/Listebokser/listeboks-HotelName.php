@@ -6,10 +6,11 @@
     print("<select name='HotelName' id='HotelName'>"); 
     for ($r=1;$r<=$antallRader;$r++)
         {
-            $rad=mysqli_fetch_array($sqlResultat); 
+            $rad=mysqli_fetch_array($sqlResultat);
+            $HotelID=$rad["HotelID"];  
             $HotelName=$rad["HotelName"]; 
           
-            print("<option value='$HotelName'>$HotelName </option>"); 
+            print("<option value='$HotelID'>$HotelName </option>"); 
         }
     print("</select>"); 
 ?>

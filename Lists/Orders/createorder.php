@@ -35,8 +35,8 @@
             $valid = false;
         }
 
-        if (strlen ($Reference) < 4 || strlen ($Reference) > 15) {
-           $ReferenceError = 'Minst 4 (fire) og maks 15 (femten) bokstaver/tall';
+        if (strlen ($Reference) < 6 || strlen ($Reference) > 6) {
+           $ReferenceError = 'Refferansen skal inneholde 6 tall/bokstaver';
            $valid = false;
         } 
 
@@ -82,6 +82,32 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+ <script>
+  $(document).ready(function(){
+    $("#txtFromDate").datepicker({
+        minDate: 0,
+        maxDate: "+60D",
+        dateFormat: 'yy-mm-dd',
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+          $("#txtToDate").datepicker("option","minDate", selected)
+        }
+    });
+    $("#txtToDate").datepicker({ 
+        minDate: 0,
+        maxDate:"+60D",
+        dateFormat: 'yy-mm-dd',
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+           $("#txtFromDate").datepicker("option","maxDate", selected)
+        }
+    });  
+});
+  </script>
 </head>
  
 <body >
@@ -128,13 +154,9 @@
                 </div>
                  
     </div> <!-- /container -->
-    <script src="../../AdminMenu/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="../../AdminMenu/assets/js/custom.js"></script>
+    <?php
+    require_once("../../footer.html");
+?> 
   </body>
 
 </html>

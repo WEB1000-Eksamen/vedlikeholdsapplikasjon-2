@@ -6,10 +6,11 @@
     print("<select name='RoomtypeName' id='RoomtypeName'>"); 
     for ($r=1;$r<=$antallRader;$r++)
         {
-            $rad=mysqli_fetch_array($sqlResultat); 
+            $rad=mysqli_fetch_array($sqlResultat);
+             $RoomtypeID=$rad["RoomtypeID"]; 
             $RoomtypeName=$rad["RoomtypeName"]; 
           
-            print("<option value='$RoomtypeName'>$RoomtypeName </option>"); 
+            print("<option value='$RoomtypeID'>$RoomtypeName </option>"); 
         }
     print("</select>"); 
 ?>

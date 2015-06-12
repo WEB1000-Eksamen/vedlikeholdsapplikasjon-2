@@ -5,5 +5,5 @@
         header("Location: /vedlikeholdsapplikasjon-2/login.php");
         exit;
     }
-    header("Location: ../../index.php");
+    header("Location: /vedlikeholdsapplikasjon-2/index.php");
     exit;

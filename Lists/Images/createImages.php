@@ -1,15 +1,18 @@
 <?php
      
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
     require_once '../../vendor/autoload.php';
     
     $client = new \Imgur\Client();
     $client->setOption('client_id', '99e41d31f15f2ea');
     $client->setOption('client_secret', 'fb1d34f57703390c133f72a81c9bf27f531d538e');
  
+    
+
     // keep track validation errors
     $ImageError = null;
+   
 
     // validate input
     $valid = true;
@@ -28,9 +31,9 @@
             
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO images (URL) values (?)";
+            $sql = "INSERT INTO images (URL,Name) values (?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($imgurURL->getData()['link']));
+            $q->execute(array($imgurURL->getData()['link'],$_FILES['image']['name']));
             Database::disconnect();
            header("Location: ImagesList.php");
         }
@@ -40,14 +43,29 @@
     }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfect Hotels Premium</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+   
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="../../AdminMenu/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
+    
     <script src="../js/bootstrap.min.js"></script>
 </head>
- 
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body>
+    <div class="background-image"></div>
     <div class="containers">
      
                 <div class="container1">
@@ -60,13 +78,16 @@
                       <div class="control-group <?php echo !empty($ImageError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="image" type="file">
+                            <div class="fargebildepad" id="fargebildepad">
+                            <input name="image" type="file" id="file">
+                        </div>
                             <?php if (!empty($ImageError)): ?>
                                 <span class="help-inline"><?php echo $ImageError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
-                      <div class="form-actions">
+
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Registrer</button>
                           <a class="btn" href="ImagesList.php">Tilbake</a>
                         </div>
