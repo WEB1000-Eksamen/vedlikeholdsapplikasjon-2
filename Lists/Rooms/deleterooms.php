@@ -12,6 +12,7 @@
         $RoomID = $_POST['RoomID'];
          
         // delete data
+        try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "DELETE FROM Rooms  WHERE RoomID = ?";
@@ -19,6 +20,9 @@
         $q->execute(array($RoomID));
         Database::disconnect();
         header("Location: RoomsList.php");
+        } catch (Exception $e) {
+ echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objectet.</font></p>";
+}   
          
     }
 ?>

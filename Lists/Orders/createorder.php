@@ -35,8 +35,8 @@
             $valid = false;
         }
 
-        if (strlen ($Reference) < 4 || strlen ($Reference) > 15) {
-           $ReferenceError = 'Minst 4 (fire) og maks 15 (femten) bokstaver/tall';
+        if (strlen ($Reference) < 6 || strlen ($Reference) > 6) {
+           $ReferenceError = 'Refferansen skal inneholde 6 tall/bokstaver';
            $valid = false;
         } 
 
