@@ -26,10 +26,11 @@
         if (empty($HotelName)) {
             $HotelNameError = 'Vennligts fyll inn hotelnavn';
             $valid = false;
-        }else if (!ctype_alpha($HotelName)) {
-            $HotelNameError = 'Ugyldig hotelnavn (Bruk bokstaver)';
-            $valid = false;
         }
+        //else if (!ctype_alpha($HotelName)) {
+        //    $HotelNameError = 'Ugyldig hotelnavn (Bruk bokstaver)';
+        //    $valid = false;
+        //}
          
            if (empty($CountryID)) {
             $CountryIDError = 'Vennligst velg LandID';
@@ -51,8 +52,8 @@
             $valid = false;
         }
 
-        if (strlen ($HotelName) < 4 || strlen ($HotelName) > 20) {
-           $HotelNameError = 'Minst 4 (fire) og maks 20 (tyve) bokstaver';
+        if (strlen ($HotelName) < 2 || strlen ($HotelName) > 40) {
+           $HotelNameError = 'Minst 2 (fire) og maks 40 (tyve) bokstaver';
            $valid = false;
         } 
 
@@ -61,8 +62,8 @@
            $valid = false;
         } 
 
-        if (strlen ($Address) < 4 || strlen ($Address) > 20) {
-           $AddressError = 'Minst 4 (fire) og maks 20 (tyve) bokstaver';
+        if (strlen ($Address) < 4 || strlen ($Address) > 40) {
+           $AddressError = 'Minst 4 (fire) og maks 40 (tyve) bokstaver';
            $valid = false;
         } 
 
@@ -105,7 +106,7 @@
      
                 <div class="container1">
                     <div class="row">
-                        <h3>Registrer en bestilling</h3>
+                        <h3>Registrer et hotell</h3>
                     </div>
              
                     <form class="form" action="createhotels.php" method="post">
@@ -113,7 +114,7 @@
                       <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="HotelName" type="text"  placeholder="F.eks Lunde Hotell" value="<?php echo !empty($HotelName)?$HotelName:'';?>">
+                            <input name="HotelName" type="text"  placeholder="2 og 40 tegn." value="<?php echo !empty($HotelName)?$HotelName:'';?>">
                             <?php if (!empty($HotelNameError)): ?>
                                 <span class="show text-danger"><?php echo $HotelNameError;?></span>
                             <?php endif; ?>
@@ -123,7 +124,7 @@
                        <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
                         <label class="control-label">Adresse</label>
                         <div class="controls">
-                            <input name="Address" type="text"  placeholder="Slottsplassen 1,0010 Oslo" value="<?php echo !empty($Address)?$Address:'';?>">
+                            <input name="Address" type="text"  placeholder="4 og 40 tegn." value="<?php echo !empty($Address)?$Address:'';?>">
                             <?php if (!empty($AddressError)): ?>
                                 <span class="show text-danger"><?php echo $AddressError;?></span>
                             <?php endif; ?>
@@ -153,7 +154,7 @@
                       <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
                         <label class="control-label">Beskrivelse</label>
                         <div class="controls">
-                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Beskrivelse..." ><?php echo !empty($Description)?$Description:'';?></textarea>
+                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Max 300 tegn." ><?php echo !empty($Description)?$Description:'';?></textarea>
                             <?php if (!empty($DescriptionError)): ?>
                                 <span class="show text-danger"><?php echo $DescriptionError;?></span>
                             <?php endif; ?>
