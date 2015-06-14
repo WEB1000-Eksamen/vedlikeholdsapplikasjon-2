@@ -118,9 +118,6 @@
                              <?php require_once("../Listebokser/listeboks-Rooms.php"); ?> <?php if (!empty($RoomNumberError)): ?>
                                 <span class="show text-danger"><?php echo $RoomNumberError;?></span>
                             <?php endif; ?>
-                            <?php if (!empty($Succsess)): ?>
-                                <span class="show text"><?php echo $Succsess;?></span>
-                            <?php endif; ?>
                         </div>
                       </div>
 
@@ -140,6 +137,9 @@
                             <?php require_once("../Listebokser/listeboks-RoomtypesName.php"); ?>
                             <?php if (!empty($RoomtypeNameError)): ?>
                                 <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
+                            <?php endif; ?>
+                             <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

@@ -34,12 +34,11 @@
             </div>
             
          <p>
-                    <a href="createcountry.php" class="btn btn-success">Registrer</a>
                 </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell <a href="createcountry.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">

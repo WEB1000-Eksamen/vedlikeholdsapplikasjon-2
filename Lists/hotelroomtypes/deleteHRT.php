@@ -12,6 +12,7 @@
         $HRID = $_POST['HRID'];
          
         // delete data
+        try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "DELETE FROM hotelroomtypes  WHERE HRID = ?";
@@ -19,6 +20,9 @@
         $q->execute(array($HRID));
         Database::disconnect();
         header("Location: HRTList.php");
+        } catch (Exception $e) {
+ echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objektet.</font></p>";
+} 
          
     }
 ?>

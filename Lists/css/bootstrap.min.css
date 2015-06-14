@@ -11,9 +11,13 @@
 h3 {
 	position: relative;
     text-align: center;
-    color: black;
+    color: white;
     margin-right: auto;
 	margin-left: auto;
+	width: 400px;
+	border-radius: 25px;
+	 background-color: #C90000;
+	 
 }
 
 body {
@@ -117,6 +121,7 @@ tr:nth-child(odd) {background: #FFF}
 .navbar-vedlikehold {
     position: fixed;
     left: -260px;
+    z-index: 2;
 }
 
 .navbar-vedlikehold.active {
@@ -124,13 +129,26 @@ tr:nth-child(odd) {background: #FFF}
 }
 
 .navbar-hamburger {
-    position: relative;
+    position: fixed;
     left: 20px;
-    top: 25px;
-    width:20px;
-    cursor: pointer;
     z-index: 5;
 }
 .navbar-vedlikehold.active > .navbar-hamburger {
     left: 280px;
+}
+
+#DropdownNav{
+	position: fixed;
+	cursor: pointer;
+    left: 120px;
+    z-index: 5;
+}
+
+
+
+#RegistButton{
+	position: relative;
+    left: 245px;
+    width: 200px;
+    z-index: 5;
 }
