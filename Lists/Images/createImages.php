@@ -31,7 +31,7 @@
             
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO images (URL,Name) values (?, ?)";
+            $sql = "INSERT INTO images (URL,ImageName) values (?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($imgurURL->getData()['link'],$_FILES['image']['name']));
             Database::disconnect();

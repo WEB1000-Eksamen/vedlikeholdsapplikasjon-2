@@ -38,7 +38,7 @@
         if (strlen ($Reference) < 6 || strlen ($Reference) > 6) {
            $ReferenceError = 'Refferansen skal inneholde 6 tall/bokstaver';
            $valid = false;
-        } 
+        }
 
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -61,6 +61,9 @@
             $sql = "INSERT INTO orders (Reference,Email) values(?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($Reference,$Email));
+            function make ($email) {
+        return substr(md5($email), 0, 6);
+    }
             Database::disconnect();
             //header("Location: OrdersList.php");
         }

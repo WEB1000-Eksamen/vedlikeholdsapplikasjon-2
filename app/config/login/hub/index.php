@@ -23,7 +23,7 @@
     <script src="/vedlikeholdsapplikasjon-2/Lists/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="background-image"></div>
+     <div id="page-inn">
     <section id="administer_users">
         <header>
             <h2 class="">Brukeradministrasjon</h2>
@@ -139,6 +139,7 @@
             </div>
         </form>
     </section>
+    </div>
 </body>
 <?php
     require_once("../../../../footer.html");

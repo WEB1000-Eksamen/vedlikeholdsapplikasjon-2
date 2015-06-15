@@ -25,19 +25,17 @@
 </head>
  
 <body >
-    <div class="background-image"></div>
+    <div id="page-inn">
     <div class="container">
             <div class="row">
-                <h3>Land</h3>
+                <h3>Bookings</h3>
             </div>
             
-         <p>
-                    <a href="createbookings.php" class="btn btn-success">Registrer</a>
-                </p>
+       
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell <a href="createbookings.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -48,7 +46,7 @@
                       <th>Fra dato</th>
                       <th>Til dato</th>
                       <th>HotelromID</th>
-                      <th>OrderID</th>
+                      <th>Referanse</th>
                       <th>Valg</th>
                                            
                                         </tr>
@@ -57,15 +55,16 @@
                                        <?php
                    include '../database.php';
                    $pdo = Database::connect();
-                   $sql = 'SELECT * FROM Bookings ORDER BY BookingID DESC';
+                   $sql = 'SELECT bookings.BookingID, `From`, `To`, hotelroomtypes.HRID, orders.Reference FROM bookings INNER JOIN hotelroomtypes ON (hotelroomtypes.HRID = bookings.HRID) INNER JOIN orders ON (orders.OrderID = bookings.OrderID) ORDER BY bookings.BookingID';
+                   
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
                             echo '<td>'. $row['BookingID'] . '</td>';
-                            echo '<td>'. $row['FromDate'] . '</td>';
-                            echo '<td>'. $row['ToDate'] . '</td>';
+                            echo '<td>'. $row['From'] . '</td>';
+                            echo '<td>'. $row['To'] . '</td>';
                             echo '<td>'. $row['HRID'] . '</td>';
-                            echo '<td>'. $row['OrderID'] . '</td>';
-                            echo '<td width=250>';
+                            echo '<td>'. $row['Reference'] . '</td>';
+                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                
                                 echo '<a class="btn btn-success" href="updatebookings.php?BookingID='.$row['BookingID'].'">Oppdater</a>';
                                 echo ' ';
@@ -78,7 +77,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

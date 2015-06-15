@@ -7,9 +7,10 @@
     for ($r=1;$r<=$antallRader;$r++)
         {
             $rad=mysqli_fetch_array($sqlResultat); 
-            $ImageID=$rad["ImageID"]; 
+            $ImageID=$rad["ImageID"];
+            $ImageName=$rad["ImageName"];  
           
-            print("<option value='$ImageID'>$ImageID </option>"); 
+            print("<option value='$ImageID'>$ImageName </option>"); 
         }
     print("</select>"); 
 ?>

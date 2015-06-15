@@ -12,8 +12,8 @@
        
          
         // keep track post values
-         $datepicker = $_POST['FromDate'];
-         $datepickerto = $_POST['ToDate'];
+         $datepicker = $_POST['From'];
+         $datepickerto = $_POST['To'];
         $HRID = $_POST['HRID'];
         $OrderID = $_POST['OrderID'];
          
@@ -44,7 +44,7 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO bookings (FromDate,ToDate,HRID,OrderID) values(?, ?, ?, ?)";
+            $sql = "INSERT INTO bookings (bookings.From,bookings.To,HRID,OrderID) values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array( $datepicker, $datepickerto,$HRID,$OrderID));
             Database::disconnect();
@@ -111,7 +111,7 @@
                       <div class="control-group <?php echo !empty( $datepickerError)?'error':'';?>">
                         <label class="control-label">Fra dato</label>
                         <div class="controls">
-                            <input name="FromDate" id="txtFromDate" type="text" readonly  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <input name="From" id="txtFromDate" type="text" readonly  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
                             <?php if (!empty( $datepickerError)): ?>
                                 <span class="help-inline"><?php echo  $datepickerError;?></span>
                             <?php endif; ?>
@@ -120,7 +120,7 @@
                           <div class="control-group <?php echo !empty( $datepickertoError)?'error':'';?>">
                         <label class="control-label">Til dato</label>
                         <div class="controls">
-                            <input name="ToDate" id="txtToDate" type="text" readonly placeholder="Til dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
+                            <input name="To" id="txtToDate" type="text" readonly placeholder="Til dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
                             <?php if (!empty( $datepickertoError)): ?>
                                 <span class="help-inline"><?php echo  $datepickertoError;?></span>
                             <?php endif;?>
@@ -138,7 +138,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($OrderIDError)?'error':'';?>">
-                        <label class="control-label">Ordre ID</label>
+                        <label class="control-label">Referanse</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-OrderID.php"); ?>
                             <?php if (!empty($OrderIDError)): ?>

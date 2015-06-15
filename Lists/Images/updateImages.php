@@ -1,6 +1,6 @@
 <?php
     require '../database.php';
-    require_once("../../top.html");
+    require_once("../../AdminMenu/Blank.html");
     require_once '../../vendor/autoload.php';
     
     $client = new \Imgur\Client();
@@ -67,9 +67,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/stylesheet.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfect Hotels Premium</title>
+  <!-- BOOTSTRAP STYLES-->
+    <link href="../../AdminMenu/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../../AdminMenu/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="../../AdminMenu/assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link   href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
@@ -91,14 +100,16 @@
                       <div class="control-group <?php echo !empty($URLError)?'error':'';?>">
                         <label class="control-label">Last opp nytt bilde:</label>
                         <div class="controls">
+                            <div class="fargebildepad" id="fargebildepad">
                             <input name="image" type="file">
+                            </div>
                             <?php if (!empty($URLError)): ?>
                                 <span class="help-inline"><?php echo $URLError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-                      <div class="form-actions">
+                      <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
                           <a class="btn" href="ImagesList.php">Tilbake</a>
                         </div>

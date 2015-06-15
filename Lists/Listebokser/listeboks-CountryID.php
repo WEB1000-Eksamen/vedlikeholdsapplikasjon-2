@@ -7,9 +7,10 @@
     for ($r=1;$r<=$antallRader;$r++)
         {
             $rad=mysqli_fetch_array($sqlResultat); 
-            $CountryID=$rad["CountryID"]; 
+            $CountryID=$rad["CountryID"];
+            $CountryName=$rad["CountryName"];  
           
-            print("<option value='$CountryID'>$CountryID </option>"); 
+            print("<option value='$CountryID'>$CountryName </option>"); 
         }
     print("</select>"); 
 ?>

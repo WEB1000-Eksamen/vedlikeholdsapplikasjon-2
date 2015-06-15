@@ -154,7 +154,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
-                        <label class="control-label">ImageID</label>
+                        <label class="control-label">Bilde</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
                             <?php if (!empty($ImageIDError)): ?>

@@ -27,14 +27,13 @@
         require_once("../../AdminMenu/Blank.html");
     ?> 
     
-    <div class="background-image"></div>
+    
+    <div id="page-inn">
     <div class="container">
             <div class="row">
                 <h3>Land</h3>
             </div>
             
-         <p>
-                </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -60,11 +59,13 @@
                             echo '<tr>';
                             echo '<td>'. $row['CountryID'] . '</td>';
                             echo '<td>'. $row['CountryName'] . '</td>';
-                            echo '<td width=250>';
+                         
+                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                 echo '<a class="btn btn-success" href="updatecountry.php?CountryID='.$row['CountryID'].'">Oppdater</a>';
                                 echo ' ';
                                 echo '<a class="btn btn-danger" href="deletecountry.php?CountryID='.$row['CountryID'].'">Slett</a>';
                                 echo '</td>';
+                               
                             echo '</tr>';
                    }
                    Database::disconnect();
@@ -73,6 +74,7 @@
                                 </table>
                             </div>
                             
+                        </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

@@ -7,9 +7,10 @@
     for ($r=1;$r<=$antallRader;$r++)
         {
             $rad=mysqli_fetch_array($sqlResultat); 
-            $OrderID=$rad["OrderID"]; 
+            $OrderID=$rad["OrderID"];
+            $Reference=$rad["Reference"]; 
           
-            print("<option value='$OrderID'>$OrderID </option>"); 
+            print("<option value='$OrderID'>$Reference </option>"); 
         }
     print("</select>"); 
 ?>

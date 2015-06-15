@@ -8,6 +8,7 @@
         $HotelNameError = null;
         $RoomtypeNameError = null;
         $RoomNumberError = null;
+        $Succsess = null;
     
         
          
@@ -55,13 +56,14 @@
               
         // insert data
         if ($valid) {
+            $Succsess = 'Hotelromet ble registrert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "INSERT INTO hotelroomtypes (HotelID,RoomtypeID,RoomID) values(?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($HotelName,$RoomtypeName,$RoomNumber));
             Database::disconnect();
-            header("Location: HRTList.php");
+            //header("Location: HRTList.php");
         }
     }
 ?>
@@ -122,6 +124,9 @@
                             <?php require_once("../Listebokser/listeboks-HotelName.php"); ?>
                             <?php if (!empty($HotelNameError)): ?>
                                 <span class="show text-danger"><?php echo $HotelNameError;?></span>
+                            <?php endif; ?>
+                            <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
                             <?php endif; ?>
                         </div>
                       </div>

@@ -24,14 +24,11 @@
 </head>
 
 <body>
-  <div class="background-image"></div>
+  <div id="page-inn">
     <div class="content">
     <div class="container">
              <h3>Rom</h3>
              
-        <p>
-                    <a href="createrooms.php" class="btn btn-success">Registrer</a>
-                </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
 
@@ -39,7 +36,7 @@
                
             </div>
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell  <a href="createrooms.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -61,7 +58,7 @@
                             echo '<tr>';
                             echo '<td>'. $row['RoomID'] . '</td>';
                             echo '<td>'. $row['RoomNumber'] . '</td>';
-                            echo '<td width=250>';
+                            echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                               
                                 echo '<a class="btn btn-success" href="updaterooms.php?RoomID='.$row['RoomID'].'">Oppdater</a>';
                                 echo ' ';
@@ -74,7 +71,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

@@ -20,7 +20,7 @@
    <link   href="Lists/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="background-image"></div>
+   <div id="page-inn">
     
     <div class="container">
              <h3>Velkommen!</h3>
@@ -37,6 +37,7 @@ Her har du som administrator muligheten for å redigere, legge til eller slette 
                                 </table>
                             </div>
                         </div>
+                         </div>
                     </div>
                     <!--End Advanced Tables -->
     </div> <!-- /container -->

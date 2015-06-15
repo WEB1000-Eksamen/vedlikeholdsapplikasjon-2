@@ -25,19 +25,16 @@
 </head>
  
 <body >
-    <div class="background-image"></div>
+    <div id="page-inn">
     <div class="container">
             <div class="row">
                 <h3>Bestillinger</h3>
             </div>
             
-         <p>
-                    <a href="createorder.php" class="btn btn-success">Registrer</a>
-                </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell <a href="createorder.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -63,7 +60,7 @@
                            
                             echo '<td>'. $row['Reference'] . '</td>';
                             echo '<td>'. $row['Email'] . '</td>';
-                            echo '<td width=250>';
+                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                 
                                 echo '<a class="btn btn-success" href="updateorder.php?OrderID='.$row['OrderID'].'">Oppdater</a>';
                                 echo ' ';
@@ -76,7 +73,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

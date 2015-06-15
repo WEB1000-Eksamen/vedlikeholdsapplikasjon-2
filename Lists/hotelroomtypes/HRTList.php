@@ -24,19 +24,15 @@
 </head>
  
 <body >
-    <div class="background-image"></div>
+   <div id="page-inn">
     <div class="container">
             <div class="row">
-                <h3>Land</h3>
+                <h3>Hotelrom</h3>
             </div>
-            
-         <p>
-                    <a href="createHRT.php" class="btn btn-success">Registrer</a>
-                </p>
         <!-- Advanced Tables -->
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="ListWindow">
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell <a href="createHRT.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -53,33 +49,17 @@
                                     </thead>
                                     <tbody>
 
-                  <?php
+                  <?php 
                    include '../database.php';
                    $pdo = Database::connect();
-                  $sql = 'SELECT
-  hotelroomtypes.HRID,
-  hotels.HotelName,
-    roomtypes.RoomtypeName,
-    rooms.RoomNumber
-FROM hotelroomtypes
-INNER JOIN hotels ON (
-    hotels.HotelID = hotelroomtypes.HotelID
-)
-INNER JOIN roomtypes ON (
-    roomtypes.RoomtypeID = hotelroomtypes.RoomtypeID    
-)
-INNER JOIN rooms ON (
-    rooms.RoomID = hotelroomtypes.RoomID
-)
-ORDER BY
-hotelroomtypes.HRID';
+                   $sql = 'SELECT hotelroomtypes.HRID, hotels.HotelName, roomtypes.RoomtypeName, rooms.RoomNumber FROM hotelroomtypes INNER JOIN hotels ON (hotels.HotelID = hotelroomtypes.HotelID) INNER JOIN roomtypes ON (roomtypes.RoomtypeID = hotelroomtypes.RoomtypeID) INNER JOIN rooms ON (rooms.RoomID = hotelroomtypes.RoomID) ORDER BY hotelroomtypes.HRID';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
                            echo '<td>'. $row['HRID'] . '</td>';
                             echo '<td>'. $row['HotelName'] . '</td>';    
                             echo '<td>'. $row['RoomtypeName'] . '</td>';
                             echo '<td>'. $row['RoomNumber'] . '</td>';   
-                            echo '<td width=250>';
+                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                 echo '<a class="btn btn-success" href="updateHRT.php?HRID='.$row['HRID'].'">Oppdater</a>';
                                 echo ' ';
                                 echo '<a class="btn btn-danger" href="deleteHRT.php?HRID='.$row['HRID'].'">Slett</a>';
@@ -91,7 +71,7 @@ hotelroomtypes.HRID';
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

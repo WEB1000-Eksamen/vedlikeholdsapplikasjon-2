@@ -25,19 +25,16 @@
 </head>
  
 <body >
-  <div class="background-image"></div>
+ <div id="page-inn">
     <div class="container">
             <div class="row">
                 <h3>Romtyper</h3>
             </div>
             
-         <p>
-                    <a href="createroomtypes.php" class="btn btn-success">Registrer</a>
-                </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Databasetabell
+                            Databasetabell  <a href="createroomtypes.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -48,7 +45,7 @@
                                             <th>Navn</th>
                                             <th>Senger</th>
                                             <th>Pris</th>
-                                            <th>BildeID</th>
+                                            <th>Bilde</th>
                                             <th>Valg</th>
                                            
                                         </tr>
@@ -65,7 +62,7 @@
                             echo '<td>'. $row['Beds'] . '</td>';
                              echo '<td>'. $row['Price'] . '</td>';
                             echo '<td>'. $row['ImageID'] . '</td>';
-                            echo '<td width=250>';
+                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                
                                 echo '<a class="btn btn-success" href="updateroomtypes.php?RoomtypeID='.$row['RoomtypeID'].'">Oppdater</a>';
                                 echo ' ';
@@ -78,7 +75,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

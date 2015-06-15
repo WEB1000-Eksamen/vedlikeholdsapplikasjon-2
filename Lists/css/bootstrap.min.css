@@ -60,40 +60,14 @@ textarea {
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
 
-.text-danger { color: #B81818; }
-.text { color: black; font-size: 200%; }
+.text-danger { color: red;  font-size: 140%; }
+.text { color: white; font-size: 200%; }
 
 * {
   box-sizing: border-box;
 }
 
-.background-image {
-  background-image: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
-  background-size: cover;
-  display: block;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  height: 800px;
-  left: 0;
-  position: fixed;
-  right: 0;
-  z-index: -3;
-}
 
-.contents {
-  background: rgba(255, 255, 255, 0.35);
- 
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  top: 10px;
-  left: 0;
-  position: fixed;
-  margin-left: 20px;
-  margin-right: 20px;
-  right: 0;
-  z-index: -1;
-  padding: 0 10px;
-}
 
 #file{
 	width: 250px;
@@ -122,10 +96,13 @@ tr:nth-child(odd) {background: #FFF}
     position: fixed;
     left: -260px;
     z-index: 2;
+    
 }
 
 .navbar-vedlikehold.active {
     left: 0;
+    width:260px;
+    z-index: 5;
 }
 
 .navbar-hamburger {
@@ -151,4 +128,21 @@ tr:nth-child(odd) {background: #FFF}
     left: 245px;
     width: 200px;
     z-index: 5;
+}
+
+
+#page-inn{
+    position:relative;
+    
+    bottom:0px;
+    background-color: rgba(32, 32, 32, 1);
+    margin-left:300px;   
+    width:1000px; 
+    min-height:100;
+    border-radius: 25px;
+}
+
+.control-label{
+    color:White;
+    font-size: 140%;
 }

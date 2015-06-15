@@ -25,19 +25,16 @@
 </head>
  
 <body >
-    <div class="background-image"></div>
+    <div id="page-inn">
     <div class="container">
             <div class="row">
                 <h3>Bilder</h3>
             </div>
             
-         <p>
-                    <a href="createImages.php" class="btn btn-success">Registrer</a>
-                </p>
         <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Databasetabell
+                             Databasetabell <a href="createImages.php" class="btn btn-success" id="RegistButton">Registrer</a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -60,7 +57,7 @@
                             echo '<tr>';
                             echo '<td style="vertical-align: middle; text-align: center;">'. $row['ImageID'] . '</td>';
                             echo '<td><a target="_blank" href="' . $row['URL'] . '"><img width="250px" src="' . $row['URL'] . '"></a></td>';
-                            echo '<td>'. $row['Name'] . '</td>';
+                            echo '<td>'. $row['ImageName'] . '</td>';
                             echo '<td style="vertical-align: middle; text-align: center;" width=300>';
                                 echo '<a class="btn btn-success" href="updateImages.php?ImageID='.$row['ImageID'].'">Oppdater</a>';
                                 echo ' ';
@@ -74,7 +71,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                             </div>
                         </div>
                     </div>
                     <!--End Advanced Tables -->

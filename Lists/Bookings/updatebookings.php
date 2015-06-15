@@ -21,8 +21,8 @@
        
          
         // keep track post values
-         $datepicker = $_POST['FromDate'];
-         $datepickerto = $_POST['ToDate'];
+         $datepicker = $_POST['From'];
+         $datepickerto = $_POST['To'];
         $HRID = $_POST['HRID'];
         $OrderID = $_POST['OrderID'];
       
@@ -53,7 +53,7 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE bookings set FromDate = ?, ToDate = ?, HRID = ?, OrderID = ? WHERE BookingID = ?";
+            $sql = "UPDATE bookings set bookings.From = ?, bookings.To = ?, HRID = ?, OrderID = ? WHERE BookingID = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($datepicker,$datepickerto,$HRID,$OrderID,$BookingID));
             Database::disconnect();
@@ -66,8 +66,8 @@
         $q = $pdo->prepare($sql);
         $q->execute(array($BookingID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-        $datepicker = $data['FromDate'];
-        $datepickerto = $data['ToDate'];
+        $datepicker = $data['From'];
+        $datepickerto = $data['To'];
         $HRID = $data['HRID'];
         $OrderID = $data['OrderID'];
         Database::disconnect();
@@ -90,6 +90,31 @@
    <link   href="../css/bootstrap.min.css" rel="stylesheet">
     
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script>
+  $(document).ready(function(){
+    $("#txtFromDate").datepicker({
+        minDate: 0,
+        maxDate: "+60D",
+        dateFormat: 'yy-mm-dd',
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+          $("#txtToDate").datepicker("option","minDate", selected)
+        }
+    });
+    $("#txtToDate").datepicker({ 
+        minDate: 0,
+        maxDate:"+60D",
+        dateFormat: 'yy-mm-dd',
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+           $("#txtFromDate").datepicker("option","maxDate", selected)
+        }
+    });  
+});
+  </script>
   
 </head>
  
@@ -107,8 +132,7 @@
                     <div class="control-group <?php echo !empty( $datepickerError)?'error':'';?>">
                         <label class="control-label">Fra dato</label>
                         <div class="controls">
-                            <input name="FromDate" id="txtFromDate" type="text"  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
-                            <?php if (!empty( $datepickerError)): ?>
+                            <input name="From" id="txtFromDate" type="text" readonly  placeholder="fra dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>"><?php if (!empty( $datepickerError)): ?>
                                 <span class="help-inline"><?php echo  $datepickerError;?></span>
                             <?php endif; ?>
                         </div>
@@ -116,7 +140,7 @@
                           <div class="control-group <?php echo !empty( $datepickertoError)?'error':'';?>">
                         <label class="control-label">Til dato</label>
                         <div class="controls">
-                            <input name="ToDate" id="txtToDate" type="text" placeholder="Til dato..." value="<?php echo !empty( $datepickerto)? $datepickerto:'';?>">
+                            <input name="To" id="txtToDate" type="text" readonly placeholder="Til dato..." value="<?php echo !empty( $datepicker)? $datepicker:'';?>">
                             <?php if (!empty( $datepickertoError)): ?>
                                 <span class="help-inline"><?php echo  $datepickertoError;?></span>
                             <?php endif;?>
@@ -124,7 +148,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($HRIDError)?'error':'';?>">
-                        <label class="control-label">HRID</label>
+                        <label class="control-label">Hotelrom ID</label>
                         <div class="controls">
                              <?php require_once("../Listebokser/listeboks-BookingsID.php"); ?>
                             <?php if (!empty($HRIDError)): ?>
@@ -134,7 +158,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($OrderIDError)?'error':'';?>">
-                        <label class="control-label">Ordre ID</label>
+                        <label class="control-label">Referanse</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-OrderID.php"); ?>
                             <?php if (!empty($OrderIDError)): ?>

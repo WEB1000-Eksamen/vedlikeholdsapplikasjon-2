@@ -51,8 +51,8 @@
             $valid = false;
         }
 
-        if (strlen ($HotelName) < 4 || strlen ($HotelName) > 20) {
-           $HotelNameError = 'Minst 4 (fire) og maks 20 (tyve) bokstaver';
+        if (strlen ($HotelName) < 2 || strlen ($HotelName) > 40) {
+           $HotelNameError = 'Minst 2 (fire) og maks 40 (førti) bokstaver';
            $valid = false;
         } 
 
@@ -131,7 +131,7 @@
                       </div>
 
                           <div class="control-group <?php echo !empty($CountryIDError)?'error':'';?>">
-                        <label class="control-label">LandID</label>
+                        <label class="control-label">Land</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-CountryID.php"); ?>
                             <?php if (!empty($CountryIDError)): ?>
@@ -141,7 +141,7 @@
                       </div>
 
                       <div class="control-group <?php echo !empty($ImageIDError)?'error':'';?>">
-                        <label class="control-label">ImageID</label>
+                        <label class="control-label">Bilde</label>
                         <div class="controls">
                             <?php require_once("../Listebokser/listeboks-ImageID.php"); ?>
                             <?php if (!empty($ImageIDError)): ?>
