@@ -27,7 +27,6 @@
         require_once("../../AdminMenu/Blank.html");
     ?> 
      <div id="page-inn">
-    <div class="background-image"></div>
     <div class="container">
             <div class="row">
                 <h3>Tags</h3>
@@ -53,9 +52,7 @@
                                        <?php
                    include '../database.php';
                    $pdo = Database::connect();
-                   $sql = 'SELECT * FROM countries ORDER BY TagID DESC';
-                   $sql = 'SELECT hoteltags.TagID, TagText, hotels.HotelName FROM hoteltags INNER JOIN hotels ON (hotels.hotelID = hoteltags.hotelID) INNER JOIN images ON (images.ImageID = hotels.ImageID) ORDER BY hotels.HotelID';
-                   
+                   $sql = 'SELECT hoteltags.TagID, hoteltags.TagText, hotels.HotelName FROM hoteltags INNER JOIN hotels ON (hotels.hotelID = hoteltags.hotelID) ORDER BY hoteltags.TagID';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
                             echo '<td>'. $row['TagID'] . '</td>';

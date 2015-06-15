@@ -26,8 +26,6 @@
     <?php
         require_once("../../AdminMenu/Blank.html");
     ?> 
-    
-    
     <div id="page-inn">
     <div class="container">
             <div class="row">

@@ -1,25 +1,25 @@
 <?php
     require '../database.php';
     require_once("../../AdminMenu/Blank.html");
-    $CountryID = 0;
+    $TagID = 0;
      
-    if ( !empty($_GET['CountryID'])) {
-        $CountryID = $_REQUEST['CountryID'];
+    if ( !empty($_GET['TagID'])) {
+        $TagID = $_REQUEST['TagID'];
     }
      
     if ( !empty($_POST)) {
         // keep track post values
-        $CountryID = $_POST['CountryID'];
+        $TagID = $_POST['TagID'];
          
         // delete data
         try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM countries  WHERE CountryID = ?";
+        $sql = "DELETE FROM hoteltags  WHERE TagID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($CountryID));
+        $q->execute(array($TagID));
         Database::disconnect();
-        header("Location: countryList.php");
+        header("Location: TagsList.php");
         } catch (Exception $e) {
  echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objektet.</font></p>";
 }     
@@ -54,12 +54,12 @@
                         <h3>Slett land</h3>
                     </div>
                      
-                    <form class="form" action="deletecountry.php" method="post">
-                      <input type="hidden" name="CountryID" value="<?php echo $CountryID;?>"/>
+                    <form class="form" action="deletetags.php" method="post">
+                      <input type="hidden" name="TagID" value="<?php echo $TagID;?>"/>
                       <p class="alert alert-error"> Er du sikker?</p>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-danger">Ja</button>
-                          <a class="btn" href="countryList.php">Nei</a>
+                          <a class="btn" href="TagsList.php">Nei</a>
                         </div>
                     </form>
                 </div>

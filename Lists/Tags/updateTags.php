@@ -1,6 +1,6 @@
 <?php
     require '../database.php';
-     require_once("../../AdminMenu/Blank.html");
+    require_once("../../AdminMenu/Blank.html");
  
     $TagID = null;
     if ( !empty($_GET['TagID'])) {
@@ -8,49 +8,47 @@
     }
      
     if ( null==$TagID ) {
-        header("Location: countrylist.php");
+        header("Location: HRTList.php");
     }
      
     if ( !empty($_POST)) {
         // keep track validation errors
         $TextError = null;
+        $HotelNameError = null;
+        
         $Succsess = null;
-
-      
+    
          
         // keep track post values
-        $TagText = $_POST['TagText'];
         $HotelName = $_POST['HotelName'];
-      
-
+        $TagText = $_POST['TagText'];
+    
 
         // validate input
         $valid = true;
        
           if (empty($TagText)) {
-            $TextError = 'Vennligts fyll inn land';
-            $valid = false;
-        }else if (!ctype_alpha($TagText)) {
-            $TextError = 'Ugyldig land. (Bruk bokstaver)';
+            $TextError = 'Venligts fyll inn romtypenavn';
             $valid = false;
         }
 
-         if (strlen ($TagText) < 3 || strlen ($TagText) > 20) {
-           $TextError = 'Minst 3 (tre) og maks 20 (tyve) bokstaver';
-           $valid = false;
+
+        if (empty($HotelName)) {
+            $HotelNameError = 'Venligts fyll inn antall Senger';
+            $valid = false;
         }
 
 
 
          $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM hoteltags where TagText = ? AND HotelName = ?";
+        $sql = "SELECT * FROM hoteltags where TagText = ? AND HotelID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($TagText));
+        $q->execute(array($TagText,$HotelName));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         if( $q->rowCount() > 0 ) { 
           $TextError = 'Taggen er allerede registrert';
-         
+          $HotelNameError = 'Taggen er allerede registrert';
           $valid = false;
                }
         Database::disconnect();
@@ -60,11 +58,11 @@
             $Succsess = 'Taggen ble oppdatert';
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE hoteltags set TagText = ?, HotelName =?, WHERE TagID = ?";
+            $sql = "UPDATE hoteltags set TagText = ?, HotelID = ? WHERE TagID = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($TagText,$HotelName,$TagID));
             Database::disconnect();
-            //header("Location: countrylist.php");
+            //header("Location: TagsList.php");
         }
     } else {
         $pdo = Database::connect();
@@ -74,7 +72,7 @@
         $q->execute(array($TagID));
         $data = $q->fetch(PDO::FETCH_ASSOC);
         $TagText = $data['TagText'];
-        $HotelName = $data['HotelName'];
+        $HotelName = $data['HotelID'];
         Database::disconnect();
     }
 ?>
@@ -94,7 +92,6 @@
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <link   href="../css/bootstrap.min.css" rel="stylesheet">
-  
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
@@ -107,21 +104,18 @@
                         <h3>Oppdater tag</h3>
                     </div>
              
-                    <form class="form" action="updatecountry.php?TagID=<?php echo $TagID?>" method="post">
-                      
+                    <form class="form" action="updatetags.php?TagID=<?php echo $TagID?>" method="post">
 
-                      <div class="control-group <?php echo !empty($TextError)?'error':'';?>">
-                        <label class="control-label">Text</label>
+                        <div class="control-group <?php echo !empty($TextError)?'error':'';?>">
+                        <label class="control-label">Tagtekst</label>
                         <div class="controls">
-                            <input name="TagText" type="text" placeholder="TagText Address" value="<?php echo !empty($TagText)?$TagText:'';?>">
-                            <?php if (!empty($TextError)): ?>
+                            <input name="TagText" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern=".{4,40}"   required title="Mellom 4-40 tegn" type="text"  placeholder="Feks. Holtandalen" value="<?php echo !empty($TagText)?$TagText:'';?>">
+                           <?php if (!empty($TextError)): ?>
                                 <span class="show text-danger"><?php echo $TextError;?></span>
-                            <?php endif;?>
-                            <?php if (!empty($Succsess)): ?>
-                                <span class="show text"><?php echo $Succsess;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
+                      
 
                       <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
                         <label class="control-label">Hotel</label>
@@ -130,21 +124,23 @@
                             <?php if (!empty($HotelNameError)): ?>
                                 <span class="show text-danger"><?php echo $HotelNameError;?></span>
                             <?php endif;?>
+                             <?php if (!empty($Succsess)): ?>
+                                <span class="show text"><?php echo $Succsess;?></span>
+                            <?php endif; ?>
                         </div>
                       </div>
-                          
+
+
                       <div class="form-action">
                           <button type="submit" class="btn btn-success">Oppdater</button>
-                          <a class="btn" href="countrylist.php">Tilbake</a>
+                          <a class="btn" href="TagsList.php">Tilbake</a>
                         </div>
                     </form>
                 </div>
                  
     </div> <!-- /container -->
-    <?php
+
+<?php
     require_once("../../footer.html");
 ?> 
-  </body>
 
-
-</html>
