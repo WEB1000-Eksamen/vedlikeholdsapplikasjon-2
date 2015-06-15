@@ -44,9 +44,10 @@
                     $allUsers = $users->get();
                     foreach ($allUsers as $key => $value) {
                         echo "<tr>";
-                        echo "<td>{$value['UserID']}</td>";
+                        echo '<td>'. $value['UserID'] . '</td>';
                         echo "<td>{$value['Username']}</td>";
                         echo "<td>Kryptert</td>";
+                        echo '<td><a class="btn btn-danger" href="/vedlikeholdsapplikasjon-2/Lists/Users/deleteuser.php?UserID='.$value['UserID'].'">Slett</a></td>';
                         echo "</tr>";
                     }
                 ?>

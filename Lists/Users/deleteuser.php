@@ -1,25 +1,25 @@
 <?php
     require '../database.php';
     require_once("../../AdminMenu/Blank.html");
-    $RoomID = 0;
+    $UserID = 0;
      
-    if ( !empty($_GET['RoomID'])) {
-        $RoomID = $_REQUEST['RoomID'];
+    if ( !empty($_GET['UserID'])) {
+        $UserID = $_REQUEST['UserID'];
     }
      
     if ( !empty($_POST)) {
         // keep track post values
-        $RoomID = $_POST['RoomID'];
+        $UserID = $_POST['UserID'];
          
         // delete data
         try {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM Rooms  WHERE RoomID = ?";
+        $sql = "DELETE FROM users  WHERE UserID = ?";
         $q = $pdo->prepare($sql);
-        $q->execute(array($RoomID));
+        $q->execute(array($UserID));
         Database::disconnect();
-        header("Location: RoomsList.php");
+        header("Location:/vedlikeholdsapplikasjon-2/app/config/login/hub/index.php");
         } catch (Exception $e) {
  echo "<p align='center'><font color=red  size='6pt'>En annen tabell er avhengig av dette objectet.</font></p>";
 }   
@@ -54,12 +54,12 @@
                         <h3>Slett rom</h3>
                     </div>
                      
-                    <form class="form" action="deleterooms.php" method="post">
-                      <input type="hidden" name="RoomID" value="<?php echo $RoomID;?>"/>
+                    <form class="form" action="deleteuser.php" method="post">
+                      <input type="hidden" name="UserID" value="<?php echo $UserID;?>"/>
                       <p class="alert alert-error"> Er du sikker?</p>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-danger">Ja</button>
-                          <a class="btn" href="RoomsList.php">Nei</a>
+                          <a class="btn" href="/vedlikeholdsapplikasjon-2/app/config/login/hub/index.php">Nei</a>
                         </div>
                     </form>
                 </div>

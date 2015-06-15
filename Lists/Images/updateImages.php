@@ -82,7 +82,7 @@
     <script src="../js/bootstrap.min.js"></script>
 </head>
  
-<body style="background: url(https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg) no-repeat; background-size: cover;">
+<body>
     <div class="containers">
      
                 <div class="container1">
