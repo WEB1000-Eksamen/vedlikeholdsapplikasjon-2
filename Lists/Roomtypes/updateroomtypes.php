@@ -32,8 +32,8 @@
           if (empty($RoomtypeName)) {
             $RoomtypeNameError = 'Venligts fyll inn romtypenavn';
             $valid = false;
-        }else if (!ctype_alpha($RoomtypeName)) {
-            $RoomtypeNameError = 'Ugyldig romtypenavn (bruk bokstaver)';
+         }else if (!ctype_alnum(str_replace(' ', '', $RoomtypeName))) {
+            $RoomtypeNameError = 'Ugyldig romtypenavn (bruk bokstaver og tall)';
             $valid = false;
         }
 
@@ -147,7 +147,7 @@
                       <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                           <input name="RoomtypeName" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}" pattern="[A-Za-z]{4,10}" required title="Mellom 4-10 bokstaver" type="text"  placeholder="F.eks Suite" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
+                           <input name="RoomtypeName" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern="[A-Za-z 0-9]{4,10}"   required title="Mellom 4-10 tegn"  type="text"  placeholder="F.eks Suite" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
                             <?php if (!empty($RoomtypeNameError)): ?>
                                 <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>

@@ -20,7 +20,7 @@
         if (empty($CountryName)) {
             $CountryNameError = 'Vennligts fyll inn landets navn.';
             $valid = false;
-        }else if (!ctype_alpha($CountryName)) {
+        }else if (!ctype_alpha(str_replace(' ', '', $CountryName))) {
             $CountryNameError = 'Ugyldig land. (Bruk bokstaver)';
             $valid = false;
         }
@@ -89,7 +89,7 @@
                       <div class="control-group <?php echo !empty($CountryNameError)?'error':'';?>">
                         <label class="control-label">Land</label>
                         <div class="controls">
-                            <input name="CountryName" type="text"  placeholder="F.eks Norge" value="<?php echo !empty($CountryName)?$CountryName:'';?>">
+                            <input name="CountryName" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern="[A-Za-z ]{3,20}"   required title="Mellom 3-20 tegn" type="text"  placeholder="F.eks Norge" value="<?php echo !empty($CountryName)?$CountryName:'';?>">
                             <?php if (!empty($CountryNameError)): ?>
                                 <span class="show text-danger"><?php echo $CountryNameError;?></span>
                             <?php endif; ?>
