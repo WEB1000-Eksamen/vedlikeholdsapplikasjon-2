@@ -22,8 +22,8 @@
             $valid = false;
         }
 
-        if (strlen($RoomNumber)>3) {
-           $RoomNumberError = 'Bruk tall med maks 3 (tre) siffer';
+        if (strlen($RoomNumber)>4) {
+           $RoomNumberError = 'Bruk tall med maks 4 (fire) siffer';
            $valid = false;
                } 
 
