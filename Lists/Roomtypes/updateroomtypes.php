@@ -66,8 +66,8 @@
            $valid = false;
         } 
 
-          if (strlen ($Price) < 2 || strlen ($Price) > 4) {
-           $PriceError = 'Bruk tall med minst 3 (tre) og maks 5 (fem) siffer';
+          if (strlen ($Price) < 2 || strlen ($Price) > 5) {
+           $PriceError = 'Bruk tall med minst 2 (to) og maks 5 (fem) siffer';
            $valid = false;
         } 
 
@@ -147,7 +147,7 @@
                       <div class="control-group <?php echo !empty($RoomtypeNameError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="RoomtypeName" type="text"  placeholder="RoomtypeName" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
+                           <input name="RoomtypeName" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}" pattern="[A-Za-z]{4,10}" required title="Mellom 4-10 bokstaver" type="text"  placeholder="F.eks Suite" value="<?php echo !empty($RoomtypeName)?$RoomtypeName:'';?>">
                             <?php if (!empty($RoomtypeNameError)): ?>
                                 <span class="show text-danger"><?php echo $RoomtypeNameError;?></span>
                             <?php endif; ?>
@@ -156,8 +156,8 @@
                           <div class="control-group <?php echo !empty($BedsError)?'error':'';?>">
                         <label class="control-label">Antall Senger</label>
                         <div class="controls">
-                            <input name="Beds" type="text" placeholder="Beds Address" value="<?php echo !empty($Beds)?$Beds:'';?>">
-                            <?php if (!empty($BedsError)): ?>
+                            <input name="Beds" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}" pattern="[0-9]{1}" required title="Bruk ett tall" type="text"  placeholder="F.eks 4" value="<?php echo !empty($Beds)?$Beds:'';?>">
+                             <?php if (!empty($BedsError)): ?>
                                 <span class="show text-danger"><?php echo $BedsError;?></span>
                             <?php endif;?>
                         </div>
@@ -166,7 +166,7 @@
                       <div class="control-group <?php echo !empty($PriceError)?'error':'';?>">
                         <label class="control-label">Pris</label>
                         <div class="controls">
-                            <input name="Price" type="text"  placeholder="Price" value="<?php echo !empty($Price)?$Price:'';?>">
+                            <input name="Price" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}" pattern="[0-9]{2,5}" required title="Mellom 1-5 tall" type="text"  placeholder="F.eks 200" value="<?php echo !empty($Price)?$Price:'';?>">
                             <?php if (!empty($PriceError)): ?>
                                 <span class="show text-danger"><?php echo $PriceError;?></span>
                             <?php endif; ?>

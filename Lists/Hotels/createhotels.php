@@ -53,7 +53,7 @@
         }
 
         if (strlen ($HotelName) < 2 || strlen ($HotelName) > 40) {
-
+           $AddressError = 'Minst 2 (to) og maks 40 (førti) bokstaver';
            $valid = false;
         } 
 
@@ -114,7 +114,7 @@
                       <div class="control-group <?php echo !empty($HotelNameError)?'error':'';?>">
                         <label class="control-label">Navn</label>
                         <div class="controls">
-                            <input name="HotelName" type="text"  placeholder="2 og 40 tegn." value="<?php echo !empty($HotelName)?$HotelName:'';?>">
+                            <input name="HotelName" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern=".{2,40}"   required title="Mellom 2-40 tegn" type="text"  placeholder="Feks. Holtandalen" value="<?php echo !empty($HotelName)?$HotelName:'';?>">
                             <?php if (!empty($HotelNameError)): ?>
                                 <span class="show text-danger"><?php echo $HotelNameError;?></span>
                             <?php endif; ?>
@@ -124,7 +124,7 @@
                        <div class="control-group <?php echo !empty($AddressError)?'error':'';?>">
                         <label class="control-label">Adresse</label>
                         <div class="controls">
-                            <input name="Address" type="text"  placeholder="4 og 40 tegn." value="<?php echo !empty($Address)?$Address:'';?>">
+                            <input name="Address" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern=".{4,40}"   required title="Mellom 4-40 tegn" type="text"  placeholder="Feks. Slottsplassen 1, Oslo" value="<?php echo !empty($Address)?$Address:'';?>">
                             <?php if (!empty($AddressError)): ?>
                                 <span class="show text-danger"><?php echo $AddressError;?></span>
                             <?php endif; ?>
@@ -154,7 +154,7 @@
                       <div class="control-group <?php echo !empty($DescriptionError)?'error':'';?>">
                         <label class="control-label">Beskrivelse</label>
                         <div class="controls">
-                            <textarea name="Description" id= "Beskrivelse" maxlength="300" type="text"  placeholder="Max 300 tegn." ><?php echo !empty($Description)?$Description:'';?></textarea>
+                            <textarea name="Description" id= "Beskrivelse" maxlength="300" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern=".{10,300}"   required title="Mellom 10-300 tegn" type="text"  placeholder="Max 300 tegn." ><?php echo !empty($Description)?$Description:'';?></textarea>
                             <?php if (!empty($DescriptionError)): ?>
                                 <span class="show text-danger"><?php echo $DescriptionError;?></span>
                             <?php endif; ?>

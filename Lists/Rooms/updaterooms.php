@@ -102,7 +102,7 @@
                       <div class="control-group <?php echo !empty($RoomNumberError)?'error':'';?>">
                         <label class="control-label">Romnummer</label>
                         <div class="controls">
-                            <input name="RoomNumber" type="text"  placeholder="RoomNumber" value="<?php echo !empty($RoomNumber)?$RoomNumber:'';?>">
+                            <input name="RoomNumber" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"  pattern="[0-9]{1,4}"   required title="Mellom 1-4 tall" type="text"  placeholder="F.eks 1" value="<?php echo !empty($RoomNumber)?$RoomNumber:'';?>">
                             <?php if (!empty($RoomNumberError)): ?>
                                 <span class="show text-danger"><?php echo $RoomNumberError;?></span>
                             <?php endif; ?>

@@ -116,7 +116,7 @@
                       <div class="control-group <?php echo !empty($ReferenceError)?'error':'';?>">
                         <label class="control-label">Referanse</label>
                         <div class="controls">
-                            <input name="Reference" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
+                            <input name="Reference" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}" pattern="[a-zA-Z0-9]{6}" required title="Skal inneholde 6 tegn" type="text"  placeholder="Reference" value="<?php echo !empty($Reference)?$Reference:'';?>">
                             <?php if (!empty($ReferenceError)): ?>
                                 <span class="show text-danger"><?php echo $ReferenceError;?></span>
                             <?php endif; ?>
@@ -125,7 +125,7 @@
                           <div class="control-group <?php echo !empty($EmailError)?'error':'';?>">
                         <label class="control-label">Email</label>
                         <div class="controls">
-                            <input name="Email" type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
+                            <input name="Email" oninvalid="setCustomValidity('Vennligst fyll inn feltet riktig')" onkeyup="try{setCustomValidity('')}catch(e){}"   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"   required title="Eks. ola@nordman.no"  type="text" placeholder="Email Address" value="<?php echo !empty($Email)?$Email:'';?>">
                             <?php if (!empty($EmailError)): ?>
                                 <span class="show text-danger"><?php echo $EmailError;?></span>
                             <?php endif;?>
